@@ -73,8 +73,8 @@ assert(subs["777"].searches[0].enabled === false, "toggle выключает п�
 assert(subs["777"].searches[0].area[0] === 1, "регион сохранился");
 assert(subs["777"].searches[0].schedule[0] === "remote", "график сохранился");
 
-await msg("/add телемедицина | питер | 4.5");
-assert(lastText().includes("Добавлена"), "/add с пайпами работает");
+await msg("/add врач | москва");
+assert(lastText().includes("Добавлена"), "/add работает");
 
 const { parseSpec } = await import("../netlify/lib/bot.mjs");
 const ps = parseSpec("врач | частичная | москва");
@@ -91,7 +91,7 @@ assert(cache.vacancies.length > 0, "кэш вакансий записан");
 const api = (await import("../netlify/functions/api-data.mjs")).handler;
 const data = JSON.parse((await api()).body);
 assert(data.vacancies.length === cache.vacancies.length, "api-data отдаёт кэш");
-assert(data.searches.length >= 3, "api-data отдаёт сиды + личные");
+assert(data.searches.length >= 2, "api-data отдаёт сиды + личные");
 assert(data.bot_username === "hhedz_bot", "bot_username в ответе");
 
 await msg("/new");

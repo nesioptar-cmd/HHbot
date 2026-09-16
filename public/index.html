@@ -196,23 +196,23 @@
 
       <h3 class="form-section-title">Активные подборки</h3>
       <div id="settings-searches"><p class="form-hint">Загрузка…</p></div>
-      <p class="form-hint" style="margin-top:.5rem">Фильтры меняются командами боту в Telegram
-      (/add, /field, /area, /schedule, /exp, /salary, /rating — подробности по /help),
-      общие подборки — в файле <code>config/searches.yaml</code>.</p>
+      <p class="form-hint" style="margin-top:.5rem">Свои подписки — мастером в боте
+      (/setup) или конструктором выше. Управление своими (удалить/выключить) —
+      кнопками 🗑 ⏸ у своих подборок, если дашборд открыт через кнопку 📊 в боте.</p>
 
       <h3 class="form-section-title">Уведомления в Telegram</h3>
       <div id="settings-telegram"><p class="form-hint">Загрузка…</p></div>
       <details class="tg-help">
-        <summary>Как добавить получателя?</summary>
+        <summary>Как получать вакансии?</summary>
         <ol>
-          <li>Получатель открывает вашего бота и жмёт <b>/start</b></li>
-          <li>Владелец запускает <code>TELEGRAM_BOT_TOKEN=xxx python src/resolve_users.py</code></li>
-          <li>Полученный <b>chat_id</b> вписывается в <code>config/users.yaml</code></li>
+          <li>Откройте бота и нажмите <b>/start</b></li>
+          <li>Создайте подборку мастером: <b>/setup врач терапевт</b></li>
+          <li>Новое будет приходить каждые 3 часа + по команде <b>/new</b></li>
         </ol>
       </details>
 
       <h3 class="form-section-title">Расписание обновлений</h3>
-      <p class="form-hint" id="settings-schedule">Данные обновляет GitHub Actions каждые 30 минут, дашборд публикуется на GitHub Pages автоматически.</p>
+      <p class="form-hint" id="settings-schedule">Данные обновляются каждые 3 часа автоматически.</p>
     </div>
     <div class="modal-footer">
       <button class="btn btn-primary" id="btn-close-settings">Понятно</button>
