@@ -1,5 +1,5 @@
 {
-  "generated_at": "16.09.2026 12:41",
+  "generated_at": "16.09.2026 12:54",
   "searches": [
     {
       "id": "python_remote",
@@ -46,5 +46,5 @@
       "min_employer_rating": 4.0
     }
   ],
-  "notify_users_count": 0
+  "notify_users_count": 1
 }

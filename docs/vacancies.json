@@ -119,6 +119,29 @@
     "search_name": "Python • Удалённо"
   },
   {
+    "id": "137201120",
+    "name": "Python-разработчик по автоматизации",
+    "url": "https://hh.ru/vacancy/137201120",
+    "area": "Москва",
+    "area_id": "1",
+    "employer": "Симикян Андраник Артурович",
+    "employer_id": "10964546",
+    "rating": 0.0,
+    "reviews_count": 0,
+    "salary_from": null,
+    "salary_to": null,
+    "currency": "",
+    "schedule": "remote",
+    "work_formats": [
+      "REMOTE"
+    ],
+    "experience": "noExperience",
+    "employment": "FULL",
+    "published_at": "2026-09-16T12:39:43.955+03:00",
+    "search_id": "python_remote",
+    "search_name": "Python • Удалённо"
+  },
+  {
     "id": "137365865",
     "name": "Младший Python разработчик",
     "url": "https://hh.ru/vacancy/137365865",
@@ -874,6 +897,29 @@
     "search_name": "Аналитик • Москва"
   },
   {
+    "id": "137422079",
+    "name": "Technical Analyst (AdTech/Programmatic)",
+    "url": "https://hh.ru/vacancy/137422079",
+    "area": "Москва",
+    "area_id": "1",
+    "employer": "Between Exchange",
+    "employer_id": "2376459",
+    "rating": 4.2,
+    "reviews_count": 5,
+    "salary_from": null,
+    "salary_to": null,
+    "currency": "",
+    "schedule": "fullDay",
+    "work_formats": [
+      "ON_SITE"
+    ],
+    "experience": "between1And3",
+    "employment": "FULL",
+    "published_at": "2026-09-16T10:29:28.096+03:00",
+    "search_id": "analyst_msk",
+    "search_name": "Аналитик • Москва"
+  },
+  {
     "id": "136168338",
     "name": "Младший аналитик данных (антифрод)",
     "url": "https://hh.ru/vacancy/136168338",
@@ -916,29 +962,6 @@
     "experience": "between1And3",
     "employment": "FULL",
     "published_at": "2026-09-15T17:34:59.396+03:00",
-    "search_id": "analyst_msk",
-    "search_name": "Аналитик • Москва"
-  },
-  {
-    "id": "137422079",
-    "name": "Technical Analyst (AdTech/Programmatic)",
-    "url": "https://hh.ru/vacancy/137422079",
-    "area": "Москва",
-    "area_id": "1",
-    "employer": "Between Exchange",
-    "employer_id": "2376459",
-    "rating": 4.2,
-    "reviews_count": 5,
-    "salary_from": null,
-    "salary_to": null,
-    "currency": "",
-    "schedule": "fullDay",
-    "work_formats": [
-      "ON_SITE"
-    ],
-    "experience": "between1And3",
-    "employment": "FULL",
-    "published_at": "2026-09-16T10:29:28.096+03:00",
     "search_id": "analyst_msk",
     "search_name": "Аналитик • Москва"
   },
@@ -1129,6 +1152,29 @@
     "search_name": "Аналитик • Москва"
   },
   {
+    "id": "133476220",
+    "name": "Аналитик данных",
+    "url": "https://hh.ru/vacancy/133476220",
+    "area": "Москва",
+    "area_id": "1",
+    "employer": "edna",
+    "employer_id": "543454",
+    "rating": 4.4,
+    "reviews_count": 72,
+    "salary_from": null,
+    "salary_to": null,
+    "currency": "",
+    "schedule": "fullDay",
+    "work_formats": [
+      "HYBRID"
+    ],
+    "experience": "between3And6",
+    "employment": "FULL",
+    "published_at": "2026-09-16T12:46:35.851+03:00",
+    "search_id": "analyst_msk",
+    "search_name": "Аналитик • Москва"
+  },
+  {
     "id": "136767862",
     "name": "Системный / Data/ Маркетинговый аналитик",
     "url": "https://hh.ru/vacancy/136767862",
@@ -1148,29 +1194,6 @@
     "experience": "between3And6",
     "employment": "FULL",
     "published_at": "2026-09-15T08:42:08.018+03:00",
-    "search_id": "analyst_msk",
-    "search_name": "Аналитик • Москва"
-  },
-  {
-    "id": "135907632",
-    "name": "Портфельный аналитик (Collection)",
-    "url": "https://hh.ru/vacancy/135907632",
-    "area": "Москва",
-    "area_id": "1",
-    "employer": "Сентинел Кредит Менеджмент",
-    "employer_id": "935653",
-    "rating": 4.0,
-    "reviews_count": 84,
-    "salary_from": null,
-    "salary_to": null,
-    "currency": "",
-    "schedule": "fullDay",
-    "work_formats": [
-      "ON_SITE"
-    ],
-    "experience": "between1And3",
-    "employment": "FULL",
-    "published_at": "2026-09-16T06:27:06.692+03:00",
     "search_id": "analyst_msk",
     "search_name": "Аналитик • Москва"
   }
