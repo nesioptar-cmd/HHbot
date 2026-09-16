@@ -1,5 +1,5 @@
 {
-  "generated_at": "16.09.2026 14:20",
+  "generated_at": "16.09.2026 14:29",
   "bot_username": "hhedz_bot",
   "searches": [
     {
@@ -18,7 +18,8 @@
       "search_period": 3,
       "min_employer_rating": 0,
       "owner": "",
-      "personal": false
+      "personal": false,
+      "enabled": true
     },
     {
       "id": "telemed",
@@ -36,7 +37,8 @@
       "search_period": 3,
       "min_employer_rating": 0,
       "owner": "",
-      "personal": false
+      "personal": false,
+      "enabled": true
     },
     {
       "id": "u_Pavel_huntflow_1",
@@ -58,7 +60,8 @@
       "search_period": 7,
       "min_employer_rating": 0,
       "owner": "Pavel_huntflow",
-      "personal": true
+      "personal": true,
+      "enabled": true
     }
   ],
   "notify_users_count": 1
