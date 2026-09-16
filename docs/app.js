@@ -27,6 +27,7 @@ let searches = [];
 let vacancies = [];
 let generatedAt = '';
 let notifyCount = 0;
+let botUsername = 'hhedz_bot';
 let seen = new Set();
 
 // ── Helpers ──
@@ -198,8 +199,9 @@ function fmtSearchLine(s) {
 function openSettings() {
   const box = document.getElementById('settings-searches');
   box.innerHTML = searches.length
-    ? searches.map((s) => `<p style="margin-bottom:.6rem"><b>${esc(s.name)}</b><br>`
-      + `<span class="form-hint">${esc(fmtSearchLine(s))}</span></p>`).join('')
+    ? searches.map((s) => `<p style="margin-bottom:.6rem"><b>${esc(s.name)}</b>`
+      + (s.owner ? ` <span class="form-hint">@${esc(s.owner)}</span>` : '')
+      + `<br><span class="form-hint">${esc(fmtSearchLine(s))}</span></p>`).join('')
     : '<p class="form-hint">Подборки не заданы.</p>';
   document.getElementById('settings-telegram').innerHTML =
     `<p class="form-hint">Получателей: <b>${notifyCount}</b>. Рассылку отправляет GitHub Actions, `
@@ -208,6 +210,25 @@ function openSettings() {
 }
 function closeSettings() {
   document.getElementById('settings-modal').hidden = true;
+}
+
+// ── Command builder: dashboard form -> ready-to-send bot command ──
+function buildCommand() {
+  const num = document.getElementById('b-num').value.trim();
+  const text = document.getElementById('b-text').value.trim();
+  const parts = [text];
+  const push = (id) => {
+    const v = document.getElementById(id).value.trim();
+    if (v) parts.push(v);
+  };
+  push('b-area'); push('b-sched'); push('b-rating'); push('b-salary');
+  push('b-exp'); push('b-field');
+  const spec = parts.filter(Boolean).join(' | ');
+  const cmd = num ? `/replace ${num} | ${spec}` : `/add ${spec}`;
+  document.getElementById('b-cmd').value = text ? cmd : '';
+  document.getElementById('b-send').href = text
+    ? `https://t.me/${botUsername}?text=${encodeURIComponent(cmd)}`
+    : '#';
 }
 
 // ── Load ──
@@ -227,8 +248,10 @@ async function refresh(showToast) {
     searches = cfg.searches || [];
     generatedAt = cfg.generated_at || '';
     notifyCount = cfg.notify_users_count || 0;
+    botUsername = cfg.bot_username || botUsername;
     vacancies = Array.isArray(vacs) ? vacs : [];
     renderSearchOptions();
+    buildCommand();
     renderAll();
     if (showToast) toast(`Загружено вакансий: ${vacancies.length}`, 'info');
   } catch (e) {
@@ -261,6 +284,9 @@ function init() {
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSettings(); });
   ['f-q', 'f-search', 'f-sched', 'f-sort', 'f-rate'].forEach((id) => {
     document.getElementById(id).addEventListener('input', renderAll);
+  });
+  ['b-num', 'b-text', 'b-field', 'b-area', 'b-sched', 'b-exp', 'b-salary', 'b-rating'].forEach((id) => {
+    document.getElementById(id).addEventListener('input', buildCommand);
   });
   refresh(false);
 }
