@@ -23,29 +23,6 @@
     "search_name": "Врач-терапевт"
   },
   {
-    "id": "136450966",
-    "name": "Врач стоматолог терапевт",
-    "url": "https://hh.ru/vacancy/136450966",
-    "area": "Горячий Ключ",
-    "area_id": "1445",
-    "employer": "Альянс",
-    "employer_id": "3188147",
-    "rating": 0.0,
-    "reviews_count": 0,
-    "salary_from": null,
-    "salary_to": null,
-    "currency": "",
-    "schedule": "flexible",
-    "work_formats": [
-      "ON_SITE"
-    ],
-    "experience": "between1And3",
-    "employment": "FULL",
-    "published_at": "2026-09-16T13:32:07.660+03:00",
-    "search_id": "terapevt",
-    "search_name": "Врач-терапевт"
-  },
-  {
     "id": "136925717",
     "name": "Врач стоматолог-терапевт",
     "url": "https://hh.ru/vacancy/136925717",
@@ -65,6 +42,29 @@
     "experience": "between3And6",
     "employment": "PART",
     "published_at": "2026-09-15T10:49:51.562+03:00",
+    "search_id": "terapevt",
+    "search_name": "Врач-терапевт"
+  },
+  {
+    "id": "135841757",
+    "name": "Стоматолог-терапевт-ортопед",
+    "url": "https://hh.ru/vacancy/135841757",
+    "area": "Санкт-Петербург",
+    "area_id": "2",
+    "employer": "Центр Цифровой Имплантации и Протезирования",
+    "employer_id": "9373181",
+    "rating": 3.6,
+    "reviews_count": 7,
+    "salary_from": 150000,
+    "salary_to": 400000,
+    "currency": "RUR",
+    "schedule": "fullDay",
+    "work_formats": [
+      "ON_SITE"
+    ],
+    "experience": "between3And6",
+    "employment": "FULL",
+    "published_at": "2026-09-16T12:15:51.977+03:00",
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -347,6 +347,29 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-14T10:01:21.176+03:00",
+    "search_id": "terapevt",
+    "search_name": "Врач-терапевт"
+  },
+  {
+    "id": "137437227",
+    "name": "Врач-терапевт (м. Медведково)",
+    "url": "https://hh.ru/vacancy/137437227",
+    "area": "Москва",
+    "area_id": "1",
+    "employer": "Группа компаний МЕДСИ",
+    "employer_id": "106571",
+    "rating": 3.6,
+    "reviews_count": 1245,
+    "salary_from": 155000,
+    "salary_to": null,
+    "currency": "RUR",
+    "schedule": "flexible",
+    "work_formats": [
+      "ON_SITE"
+    ],
+    "experience": "between1And3",
+    "employment": "FULL",
+    "published_at": "2026-09-16T14:08:14.249+03:00",
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -811,29 +834,6 @@
     "search_name": "Врач-терапевт"
   },
   {
-    "id": "137351501",
-    "name": "Врач-терапевт (выездная служба на дом)",
-    "url": "https://hh.ru/vacancy/137351501",
-    "area": "Ярославль",
-    "area_id": "112",
-    "employer": "АВС-ПРОФМЕДИЦИНА",
-    "employer_id": "10380637",
-    "rating": 4.2,
-    "reviews_count": 16,
-    "salary_from": 150000,
-    "salary_to": 300000,
-    "currency": "RUR",
-    "schedule": "flexible",
-    "work_formats": [
-      "FIELD_WORK"
-    ],
-    "experience": "between1And3",
-    "employment": "PART",
-    "published_at": "2026-09-15T08:41:29.353+03:00",
-    "search_id": "terapevt",
-    "search_name": "Врач-терапевт"
-  },
-  {
     "id": "123510424",
     "name": "Врач-терапевт участковый",
     "url": "https://hh.ru/vacancy/123510424",
@@ -945,6 +945,29 @@
     "experience": "between1And3",
     "employment": "PART",
     "published_at": "2026-09-15T08:41:02.312+03:00",
+    "search_id": "terapevt",
+    "search_name": "Врач-терапевт"
+  },
+  {
+    "id": "137351501",
+    "name": "Врач-терапевт (выездная служба на дом)",
+    "url": "https://hh.ru/vacancy/137351501",
+    "area": "Ярославль",
+    "area_id": "112",
+    "employer": "АВС-ПРОФМЕДИЦИНА",
+    "employer_id": "10380637",
+    "rating": 4.2,
+    "reviews_count": 16,
+    "salary_from": 150000,
+    "salary_to": 300000,
+    "currency": "RUR",
+    "schedule": "flexible",
+    "work_formats": [
+      "FIELD_WORK"
+    ],
+    "experience": "between1And3",
+    "employment": "PART",
+    "published_at": "2026-09-15T08:41:29.353+03:00",
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -1128,29 +1151,6 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-16T12:25:07.655+03:00",
-    "search_id": "terapevt",
-    "search_name": "Врач-терапевт"
-  },
-  {
-    "id": "134518262",
-    "name": "Врач-терапевт участковый",
-    "url": "https://hh.ru/vacancy/134518262",
-    "area": "Уфа",
-    "area_id": "99",
-    "employer": "ГБУЗ РБ ГКБ №13 г. Уфа",
-    "employer_id": "2611380",
-    "rating": 3.1,
-    "reviews_count": 32,
-    "salary_from": 70000,
-    "salary_to": null,
-    "currency": "RUR",
-    "schedule": "fullDay",
-    "work_formats": [
-      "ON_SITE"
-    ],
-    "experience": "noExperience",
-    "employment": "FULL",
-    "published_at": "2026-09-16T06:29:40.245+03:00",
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -2326,5 +2326,74 @@
     "published_at": "2026-09-16T10:46:21.266+03:00",
     "search_id": "telemed",
     "search_name": "Телемедицина"
+  },
+  {
+    "id": "136967859",
+    "name": "Врач Терапевт на дежурную линию (телемедицина)",
+    "url": "https://hh.ru/vacancy/136967859",
+    "area": "Москва",
+    "area_id": "1",
+    "employer": "Медлайнселект",
+    "employer_id": "10895256",
+    "rating": 4.3,
+    "reviews_count": 12,
+    "salary_from": 155000,
+    "salary_to": 201100,
+    "currency": "RUR",
+    "schedule": "remote",
+    "work_formats": [
+      "REMOTE"
+    ],
+    "experience": "between1And3",
+    "employment": "PART",
+    "published_at": "2026-09-15T18:43:02.073+03:00",
+    "search_id": "u_Pavel_huntflow_1",
+    "search_name": "👤 врач телемедицина терапевт"
+  },
+  {
+    "id": "137037284",
+    "name": "Врач - терапевт (Телемедицина)",
+    "url": "https://hh.ru/vacancy/137037284",
+    "area": "Москва",
+    "area_id": "1",
+    "employer": "МЕДОРИА",
+    "employer_id": "5871306",
+    "rating": 4.0,
+    "reviews_count": 27,
+    "salary_from": 146800,
+    "salary_to": 180000,
+    "currency": "RUR",
+    "schedule": "remote",
+    "work_formats": [
+      "REMOTE"
+    ],
+    "experience": "between1And3",
+    "employment": "PART",
+    "published_at": "2026-09-16T09:11:32.788+03:00",
+    "search_id": "u_Pavel_huntflow_1",
+    "search_name": "👤 врач телемедицина терапевт"
+  },
+  {
+    "id": "137219374",
+    "name": "Врач-терапевт (консультации, телемедицина)",
+    "url": "https://hh.ru/vacancy/137219374",
+    "area": "Санкт-Петербург",
+    "area_id": "2",
+    "employer": "Дженерал Медикал Центр-СП",
+    "employer_id": "1986882",
+    "rating": 4.2,
+    "reviews_count": 4,
+    "salary_from": 84000,
+    "salary_to": 120300,
+    "currency": "RUR",
+    "schedule": "remote",
+    "work_formats": [
+      "REMOTE"
+    ],
+    "experience": "between1And3",
+    "employment": "PART",
+    "published_at": "2026-09-10T17:33:03.379+03:00",
+    "search_id": "u_Pavel_huntflow_1",
+    "search_name": "👤 врач телемедицина терапевт"
   }
 ]

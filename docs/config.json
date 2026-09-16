@@ -1,5 +1,5 @@
 {
-  "generated_at": "16.09.2026 14:01",
+  "generated_at": "16.09.2026 14:12",
   "bot_username": "hhedz_bot",
   "searches": [
     {
@@ -37,6 +37,28 @@
       "min_employer_rating": 0,
       "owner": "",
       "personal": false
+    },
+    {
+      "id": "u_Pavel_huntflow_1",
+      "name": "👤 врач телемедицина терапевт",
+      "text": "врач телемедицина терапевт",
+      "search_field": "everywhere",
+      "area": [
+        113
+      ],
+      "schedule": [
+        "remote"
+      ],
+      "employment": [],
+      "experience": [
+        "between1And3"
+      ],
+      "salary_from": 0,
+      "only_with_salary": false,
+      "search_period": 7,
+      "min_employer_rating": 0,
+      "owner": "Pavel_huntflow",
+      "personal": true
     }
   ],
   "notify_users_count": 1
