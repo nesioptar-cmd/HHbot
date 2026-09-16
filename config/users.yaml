@@ -1,0 +1,19 @@
+# Маппинг Telegram-получателей.
+# ВАЖНО: Telegram Bot API НЕ умеет отправлять сообщения по @username.
+# Бот может писать только по chat_id, а chat_id появляется только после того,
+# как пользователь сам нажмёт /start в вашем боте.
+#
+# Как заполнить:
+#   1. Создайте бота через @BotFather, получите токен -> GitHub Secret TELEGRAM_BOT_TOKEN
+#   2. Каждый получатель открывает вашего бота и жмёт /start
+#   3. Запустите:  TELEGRAM_BOT_TOKEN=xxx python src/resolve_users.py
+#      Скрипт опросит getUpdates и допишет chat_id по username.
+#   4. Либо попросите пользователя прислать свой chat_id (узнать можно через @userinfobot)
+#
+# Формат: username БЕЗ @, chat_id — число.
+
+users:
+  # - username: "ivan_petrov"
+  #   chat_id: 123456789
+  # - username: "maria_s"
+  #   chat_id: 987654321

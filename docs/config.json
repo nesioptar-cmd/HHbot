@@ -1,0 +1,50 @@
+{
+  "generated_at": "16.09.2026 12:34",
+  "searches": [
+    {
+      "id": "python_remote",
+      "name": "Python • Удалённо",
+      "text": "python разработчик",
+      "search_field": "name",
+      "area": [
+        113
+      ],
+      "schedule": [
+        "remote"
+      ],
+      "employment": [
+        "full"
+      ],
+      "experience": [],
+      "salary_from": 0,
+      "only_with_salary": false,
+      "search_period": 3,
+      "min_employer_rating": 0
+    },
+    {
+      "id": "analyst_msk",
+      "name": "Аналитик • Москва",
+      "text": "аналитик данных",
+      "search_field": "everywhere",
+      "area": [
+        1
+      ],
+      "schedule": [
+        "fullDay",
+        "flexible"
+      ],
+      "employment": [
+        "full"
+      ],
+      "experience": [
+        "between1And3",
+        "between3And6"
+      ],
+      "salary_from": 120000,
+      "only_with_salary": false,
+      "search_period": 7,
+      "min_employer_rating": 4.0
+    }
+  ],
+  "notify_users_count": 0
+}

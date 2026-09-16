@@ -1,0 +1,149 @@
+# HHbot — вакансии hh.ru → Telegram + дашборд на бесплатном хостинге (GitHub)
+
+Бот каждые 30 минут проверяет **hh.ru** по вашим фильтрам, присылает **новые вакансии в Telegram**
+конкретным пользователям и обновляет **дашборд** на GitHub Pages.
+
+Всё бесплатно: GitHub Actions (~2000 мин/мес) + GitHub Pages + Telegram Bot API + публичный поиск hh.ru.
+Свой сервер не нужен.
+
+## Как это устроено
+
+```
+GitHub Actions (cron */30) → src/main.py → hh.ru → фильтры →
+    → Telegram Bot API (новым вакансиям) + docs/index.html (дашборд) → GitHub Pages
+```
+
+**Важный нюанс про официальный API hh.ru:** анонимные запросы к `api.hh.ru/vacancies`
+через несколько обращений начинают отдавать `403` (требует капчу/токен), а рейтинга
+работодателя там вообще нет. Поэтому по умолчанию бот ходит в тот же публичный endpoint,
+что и сам сайт hh.ru (`hh.ru/shards/vacancy/search`): он без капчи и отдаёт
+`company.employerReviews.totalRating` — именно по нему работает фильтр «рейтинг работодателя».
+Опционально можно подключить официальный API через `HH_ACCESS_TOKEN` (приложение на
+https://dev.hh.ru/admin), код уже поддерживает оба пути.
+
+**Важный нюанс про Telegram:** Bot API **не умеет слать по @username**, только по `chat_id`.
+Поэтому каждый получатель один раз жмёт `/start` в вашем боте, а вы один раз
+прогоняете `resolve_users.py`, который дописывает `chat_id` (подробности ниже).
+
+## Быстрый старт (10 минут)
+
+### 1. Создайте Telegram-бота
+1. Напишите [@BotFather](https://t.me/BotFather) → `/newbot` → получите **токен**.
+2. Откройте вашего бота и нажмите `/start` (это нужно сделать **каждому получателю**).
+
+### 2. Загрузите проект на GitHub
+```bash
+git add -A && git commit -m "hhbot init" && git push
+# или создайте репозиторий на github.com и запушьте эту папку
+```
+
+### 3. Добавьте Secret с токеном
+Repo → **Settings → Secrets and variables → Actions → New repository secret**:
+- Name: `TELEGRAM_BOT_TOKEN`, Value: токен от BotFather.
+
+Опционально (официальный API hh.ru вместо публичного):
+- `HH_ACCESS_TOKEN` — OAuth-токен приложения с dev.hh.ru
+- `HH_USER_AGENT` — например `my-hh-bot/1.0 (you@yourdomain.ru)`
+
+### 4. Привяжите пользователей (username → chat_id)
+Локально (нужен Python 3.10+ и `pip install pyyaml`):
+```bash
+export TELEGRAM_BOT_TOKEN=xxx   # тот же токен
+python src/resolve_users.py     # покажет chat_id тех, кто нажал /start
+```
+Впишите их в `config/users.yaml`:
+```yaml
+users:
+  - username: "ivan_petrov"
+    chat_id: 123456789
+```
+Закоммитьте и запушьте. Готово — дальше всё само.
+
+### 5. Включите GitHub Pages (дашборд)
+Repo → **Settings → Pages → Source: GitHub Actions**.
+После первого запуска workflow дашборд будет доступен по адресу
+`https://<ваш-логин>.github.io/<репозиторий>/`.
+
+Проверить работу можно сразу: **Actions → HH Vacancies Bot → Run workflow**.
+
+## Настройка выдачи (`config/searches.yaml`)
+
+Каждая подборка — это один набор фильтров. Все поля из ТЗ покрыты:
+
+| Поле | Что делает | Значения hh.ru |
+|---|---|---|
+| `text` | ключевое слово | любое, напр. `python разработчик` |
+| `search_field` | где искать слово | `everywhere` (везде), `name` (в названии), `company_name` (в компании), `description` (в описании) |
+| `area` | локация | `1` Москва, `2` СПб, `113` вся Россия… полный список: https://api.hh.ru/areas |
+| `schedule` | график — **все варианты hh.ru** | `fullDay` (полный день), `shift` (сменный), `flexible` (гибкий), `remote` (удалённо), `flyInFlyOut` (вахта) |
+| `employment` | тип занятости | `full`, `part`, `project`, `volunteer`, `probation` |
+| `experience` | опыт | `noExperience`, `between1And3`, `between3And6`, `moreThan6` |
+| `salary_from` / `only_with_salary` | зарплата | число в рублях + флаг «только с зарплатой» |
+| `search_period` | свежесть | `1`, `3`, `7`, `30` дней |
+| `min_employer_rating` | **рейтинг работодателя** (звёзды hh.ru) | `0` — выкл, напр. `4.0` |
+| `exclude_keywords` | стоп-слова в названии | напр. `["стажер"]` |
+| `max_results` | лимит на подборку | напр. `50` |
+| `notify_users` | кому слать | `[]` — всем из users.yaml, или `["@ivan"]` |
+
+Пример — только удалёнка с рейтингом 4.5+ в названии:
+```yaml
+- id: python_remote_top
+  name: "Python remote 4.5+"
+  text: "python"
+  search_field: name
+  area: [113]
+  schedule: [remote]
+  employment: [full]
+  min_employer_rating: 4.5
+  search_period: 3
+  max_results: 50
+  notify_users: []
+```
+
+## Дашборд
+
+Дизайн — `frontend/` (тёмная/светлая тема, карточки, бейджи подборок, фильтры:
+поиск, подборка, график, сортировка, мин. рейтинг; «новые» помечаются по локальному
+просмотру, кнопка «Отметить просмотренными»). Модалка «Настройки» показывает
+активные подборки из репозитория в режиме чтения — фильтры меняются только через
+`config/searches.yaml` (токен бота в браузер не выносится из соображений безопасности).
+
+`src/main.py` при каждом прогоне копирует `frontend/` в `docs/` и дописывает
+`vacancies.json` + `config.json` — Pages публикует готовую статику, бэкенд не нужен.
+
+## Локальный запуск
+
+```bash
+pip install -r requirements.txt
+TELEGRAM_BOT_TOKEN=xxx python src/main.py --send     # fetch + рассылка + дашборд
+python src/main.py --no-send                          # только дашборд, без рассылки
+open docs/index.html
+```
+
+Дедупликация: отправленные вакансии запоминаются в `data/seen.json`
+(ключ `search_id:vacancy_id`), повторных сообщений не будет.
+
+## Лимиты бесплатного тарифа
+
+- GitHub Actions: 2000 мин/мес для приватных репо (для публичных — безлимит).
+  Один прогон ~30–60 сек → запуск каждые 30 мин ≈ 700 мин/мес. Влезаете с запасом.
+- GitHub Pages: 100 ГБ трафика/мес — для дашборда более чем достаточно.
+- Telegram: ~30 сообщений/сек, бот шлёт ≤10 новых на пользователя за прогон.
+- hh.ru: пауза 0.4 сек между страницами, лимит глубины 2000 вакансий (ограничение самого hh).
+
+## Структура
+
+```
+config/searches.yaml   фильтры выдачи
+config/users.yaml      получатели (username → chat_id)
+src/hh_client.py       клиент hh.ru (shards без капчи + official с токеном)
+src/filters.py         рейтинг / стоп-слова / проверка ключевого слова
+src/telegram.py        отправка в Telegram
+src/dashboard.py       копирование frontend/ в docs/ + vacancies.json/config.json
+src/main.py            оркестратор
+src/resolve_users.py   username → chat_id через getUpdates
+frontend/             дизайн дашборда (index.html/app.js/style.css, источник для docs/)
+.github/workflows/    cron + деплой Pages
+docs/                 собранный дашборд (GitHub Pages, генерируется автоматически)
+data/seen.json        уже отправленные вакансии
+```
