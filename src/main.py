@@ -49,7 +49,9 @@ def load_seen(path):
     try:
         with open(path, encoding="utf-8") as f:
             d = json.load(f)
-            return set(d.get("seen_ids", []))
+            ids = d.get("seen_ids", [])
+            # миграция со старого формата "search_id:vacancy_id" -> "vacancy_id"
+            return {str(k).split(":")[-1] for k in ids}
     except Exception:
         return set()
 
@@ -105,12 +107,13 @@ def main():
         return
 
     seen = load_seen(os.path.join(ROOT, "data", "seen.json"))
-    all_vac, fresh = [], []
+    merged, fresh_ids = {}, []
 
     for s in searches:
         sid = s.get("id") or s.get("name")
+        sname = s.get("name") or sid
         limit = args.limit_per_search or int(s.get("max_results") or 50)
-        print(f"[main] Поиск '{s.get('name')}' …")
+        print(f"[main] Поиск '{sname}' …")
         try:
             if hh_token:
                 items, total = hh_client.search_official(s, hh_token, hh_ua, limit)
@@ -123,13 +126,30 @@ def main():
         kept = apply_filters(items, s)
         print(f"[main]   после фильтров (рейтинг≥{s.get('min_employer_rating') or 0}): {len(kept)}")
         for v in kept:
-            v["search_id"] = sid
-            v["search_name"] = s.get("name") or sid
-            all_vac.append(v)
-            key = f"{sid}:{v['id']}"
-            if key not in seen:
-                fresh.append((s, v))
-                seen.add(key)
+            vid = str(v["id"])
+            m = merged.get(vid)
+            if m is None:
+                m = dict(v)
+                m["search_ids"] = []
+                m["search_names"] = []
+                m["notify"] = []  # [(username|None=all, search_name)]
+                merged[vid] = m
+            if sid not in m["search_ids"]:
+                m["search_ids"].append(sid)
+            if sname not in m["search_names"]:
+                m["search_names"].append(sname)
+            targets = [u.lstrip("@") for u in (s.get("notify_users") or [])]
+            m["notify"].append((targets, sname))
+            if vid not in seen:
+                seen.add(vid)
+                if vid not in fresh_ids:
+                    fresh_ids.append(vid)
+    # совместимость: первое совпадение как основная подборка
+    all_vac = []
+    for m in merged.values():
+        m["search_id"] = m["search_ids"][0]
+        m["search_name"] = m["search_names"][0]
+        all_vac.append(m)
 
     # Дашборд — всегда (все отфильтрованные, не только новые)
     build_dashboard(
@@ -139,7 +159,7 @@ def main():
     )
     save_seen(os.path.join(ROOT, "data", "seen.json"), seen)
 
-    print(f"[main] Всего: {len(all_vac)}, новых: {len(fresh)}")
+    print(f"[main] Всего уникальных: {len(all_vac)}, новых: {len(fresh_ids)}")
     if not args.send:
         print("[main] --no-send: рассылка пропущена.")
         return
@@ -151,14 +171,17 @@ def main():
         return
 
     by_user = {u.get("username", "").lstrip("@"): u.get("chat_id") for u in users_cfg if u.get("chat_id")}
-    # группируем свежие по получателям
+    # одна вакансия — одно сообщение: получатели объединяются по всем совпавшим подборкам
     per_chat = {}
-    for s, v in fresh:
-        targets = [u.lstrip("@") for u in (s.get("notify_users") or [])] or list(by_user.keys())
-        for u in targets:
+    for vid in fresh_ids:
+        m = merged[vid]
+        who = set()
+        for targets, _sname in m["notify"]:
+            who.update(targets or list(by_user.keys()))
+        for u in who:
             cid = by_user.get(u)
             if cid:
-                per_chat.setdefault(cid, []).append((s, v))
+                per_chat.setdefault(cid, []).append(m)
 
     if not per_chat:
         if not by_user:
@@ -167,23 +190,16 @@ def main():
             print("[main] Новых вакансий для рассылки нет.")
         return
 
-    head_tpl = "🆕 <b>{n} новых</b> по подборке «{name}»"
     for chat_id, items in per_chat.items():
-        # шапка по каждой подборке + карточки (макс. 10 на пользователя за запуск)
-        groups = {}
-        for s, v in items:
-            groups.setdefault(s.get("id"), (s, []))[1].append(v)
+        telegram.send_message(
+            token, chat_id,
+            f"🆕 <b>{len(items)} новых</b> за обновление")
         sent = 0
-        for sid, (s, vs) in groups.items():
-            if sent >= 10:
-                break
-            telegram.send_message(token, chat_id, head_tpl.format(n=len(vs), name=s.get("name")))
-            for v in vs[:10 - sent]:
-                if sent >= 10:
-                    break
-                ok, _ = telegram.send_message(
-                    token, chat_id, telegram.format_vacancy(v, s.get("name")))
-                sent += 1 if ok else 0
+        for m in items[:10]:
+            ok, _ = telegram.send_message(
+                token, chat_id,
+                telegram.format_vacancy(m, " · ".join(m["search_names"])))
+            sent += 1 if ok else 0
         print(f"[main] -> chat {chat_id}: {sent} сообщений")
 
 
