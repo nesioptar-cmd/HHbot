@@ -1,32 +1,22 @@
-# Примеры area (регионы hh.ru, сверено с https://api.hh.ru/areas).
-# Полный список: https://api.hh.ru/areas
-# 1 — Москва, 2 — Санкт-Петербург, 3 — Екатеринбург, 4 — Новосибирск,
-# 66 — Нижний Новгород, 88 — Казань, 78 — Самара, 104 — Челябинск,
-# 113 — вся Россия
+# Общие подборки: рассылаются ВСЕМ пользователям из users.yaml.
+# Личные подборки каждый пользователь создаёт себе сам командами бота
+# (/add, /schedule, /area, /rating, ...) — этот файл трогать не нужно.
 #
-# schedule (график, все варианты hh.ru):
-#   fullDay — полный день, shift — сменный, flexible — гибкий,
-#   remote — удалённо, flyInFlyOut — вахтовый
-#
-# employment (тип занятости):
-#   full — полная, part — частичная, project — проектная,
-#   volunteer — волонтёрство, probation — стажировка
-#
-# experience (опыт):
-#   noExperience, between1And3, between3And6, moreThan6
-#
-# search_field (где искать ключевое слово):
-#   everywhere — везде, name — в названии, company_name — в названии компании,
-#   description — в описании
+# area (сверено с https://api.hh.ru/areas): 1 — Москва, 2 — Санкт-Петербург,
+# 113 — вся Россия. Полный список: https://api.hh.ru/areas
+# schedule: fullDay (полный день), shift (сменный), flexible (гибкий),
+#   remote (удалённо), flyInFlyOut (вахта). Пусто = любой.
+# search_field: everywhere (везде), name (в названии),
+#   company_name (в компании), description (в описании).
 
 searches:
-  - id: python_remote
-    name: "Python • Удалённо"
-    text: "python разработчик"
-    search_field: name
+  - id: terapevt
+    name: "Врач-терапевт"
+    text: "врач терапевт"
+    search_field: everywhere
     area: [113]
-    schedule: [remote]
-    employment: [full]
+    schedule: []
+    employment: []
     experience: []
     salary_from: 0
     only_with_salary: false
@@ -34,20 +24,20 @@ searches:
     min_employer_rating: 0.0
     exclude_keywords: []
     max_results: 50
-    notify_users: []  # пусто = всем пользователям из users.yaml
+    notify_users: []
 
-  - id: analyst_msk
-    name: "Аналитик • Москва"
-    text: "аналитик данных"
+  - id: telemed
+    name: "Телемедицина"
+    text: "телемедицина"
     search_field: everywhere
-    area: [1]
-    schedule: [fullDay, flexible]
-    employment: [full]
-    experience: [between1And3, between3And6]
-    salary_from: 120000
+    area: [113]
+    schedule: []
+    employment: []
+    experience: []
+    salary_from: 0
     only_with_salary: false
-    search_period: 7
-    min_employer_rating: 4.0
-    exclude_keywords: ["стажер", "intern"]
+    search_period: 3
+    min_employer_rating: 0.0
+    exclude_keywords: []
     max_results: 50
     notify_users: []
