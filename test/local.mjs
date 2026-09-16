@@ -94,6 +94,13 @@ assert(data.vacancies.length === cache.vacancies.length, "api-data отдаёт 
 assert(data.searches.length >= 2, "api-data отдаёт сиды + личные");
 assert(data.bot_username === "hhedz_bot", "bot_username в ответе");
 
+// протухший кэш: вакансия без активных подписок должна отсекаться
+cache.vacancies.push({ id: "orphan1", name: "Мусор", search_ids: ["deleted-search"], search_names: ["Удалённая"] });
+fs.writeFileSync(".tmp-test/cache.json", JSON.stringify(cache));
+const data2 = JSON.parse((await api()).body);
+assert(!data2.vacancies.some((v) => v.id === "orphan1"), "осиротевшие вакансии отсекаются");
+assert(data2.vacancies.length === cache.vacancies.length - 1, "остальные на месте");
+
 await msg("/new");
 const freshMsgs = sent.filter((s) => s.method === "sendMessage").slice(-9);
 assert(freshMsgs[0]?.body.text.includes("Последние по вашим подпискам"), "/new → заголовок");

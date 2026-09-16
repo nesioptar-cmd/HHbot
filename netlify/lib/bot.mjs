@@ -228,6 +228,7 @@ export async function onText(ctx, text, state) {
     const s = arg.includes("|") ? parseSpec(arg) : { ...blankDraft(arg.slice(0, 100)) };
     if (!s.text) { await sendMessage(chatId, "Не понял запрос. Пример: /add <i>врач терапевт | москва</i>"); return; }
     if (!s.name) s.name = `👤 ${s.text.slice(0, 40)}`;
+    s.id = "u" + Date.now().toString(36);
     state.searches.push(s);
     await sendMessage(chatId, `✅ Добавлена: ${describe(s)}`);
     return;
@@ -320,6 +321,7 @@ export async function onCallback(ctx, data, msgId, state) {
     if (key === "done") {
       const s = { ...d };
       delete s.menuMsgId; delete s.editIndex;
+      s.id = "u" + Date.now().toString(36);
       s.name = `👤 ${s.text.slice(0, 40)}`;
       s.enabled = true;
       if (d.editIndex !== null && d.editIndex !== undefined) {

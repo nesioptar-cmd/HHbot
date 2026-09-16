@@ -9,16 +9,21 @@ export async function handler() {
   const cache = (await storeGet("cache", { generated_at: "", vacancies: [] })) || {};
   const searches = SEEDS.map((s) => ({ ...s, personal: false, owner: "" }));
   for (const [chatId, u] of Object.entries(subs)) {
-    (u.searches || []).forEach((s, i) => {
+    (u.searches || []).forEach((s) => {
       searches.push({
         ...s,
-        id: s.id || `u_${u.username || chatId}_${i + 1}`,
+        id: s.id || s.name,
         personal: true,
         owner: u.username || "",
       });
     });
   }
   const usersCount = Object.keys(subs).length;
+  // Отсекаем «осиротевшие» вакансии из протухшего кэша: показываем только те,
+  // у которых есть хотя бы одна активная подписка. Без подписок — пусто.
+  const activeIds = new Set(searches.filter((s) => s.enabled !== false).map((s) => s.id));
+  const vacancies = (cache.vacancies || []).filter((v) =>
+    (v.search_ids || []).some((id) => activeIds.has(id)));
   return {
     statusCode: 200,
     headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
@@ -27,7 +32,7 @@ export async function handler() {
       bot_username: process.env.BOT_USERNAME || "hhedz_bot",
       searches,
       notify_users_count: usersCount,
-      vacancies: cache.vacancies || [],
+      vacancies,
     }),
   };
 }
