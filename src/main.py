@@ -88,7 +88,8 @@ def main():
                     yaml.safe_dump({"users": users_cfg}, f, allow_unicode=True, sort_keys=False)
             except Exception as e:
                 print(f"[main] users.yaml save failed: {e}")
-        for owner, plist in (personal or {}).items():
+        for owner, pentry in (personal or {}).items():
+            plist = pentry.get("searches") if isinstance(pentry, dict) else (pentry or [])
             for i, p in enumerate(plist, 1):
                 p = dict(p)
                 p["id"] = f"u_{owner}_{i}"

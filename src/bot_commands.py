@@ -59,21 +59,17 @@ EXP_RU = {"noExperience": "без опыта", "between1And3": "1–3 года",
           "between3And6": "3–6 лет", "moreThan6": "6+ лет"}
 
 HELP = (
-    "🤖 <b>Команды</b> (номер — из /list, можно опускать):\n"
-    "/add <i>текст</i> — новая подборка\n"
-    "/add <i>текст | регион | график | рейтинг | зарплата | опыт | где</i> — сразу с фильтрами\n"
-    "/replace <i>номер | …</i> — заменить подборку целиком (это собирает форма в дашборде)\n"
+    "🤖 <b>Команды:</b>\n"
+    "/setup <i>текст</i> — пошаговое меню настройки (кнопки)\n"
+    "/add <i>текст</i> — быстрая подборка\n"
+    "/add <i>текст | регион | график | …</i> — сразу с фильтрами\n"
+    "/replace <i>номер | …</i> — заменить подборку целиком\n"
     "/list — мои подборки\n"
     "/show <i>[номер]</i> — подробно об одной\n"
     "/del <i>номер</i> — удалить\n"
-    "/text <i>[номер] новый текст</i> — сменить запрос\n"
-    "/field <i>[номер] где</i> — везде, название, описание, компания\n"
-    "/area <i>[номер] регион</i> — москва, питер, россия\n"
-    "/schedule <i>[номер] вид</i> — remote, fullday, flexible, shift, vahta, any\n"
-    "/exp <i>[номер] опыт</i> — без опыта, 1-3, 3-6, 6+, any\n"
-    "/salary <i>[номер] сумма</i> — зарплата от (0 — убрать)\n"
-    "/rating <i>[номер] 0–5</i> — мин. рейтинг работодателя\n"
-    "⏱ Срабатывают при ближайшем обновлении (до ~30 мин)."
+    "/text · /field · /area · /schedule · /exp · /salary · /rating — правки\n"
+    "(номер из /list можно опускать)\n"
+    "⏱ Всё применяется при ближайшем обновлении (каждые ~5 мин)."
 )
 
 
@@ -207,9 +203,99 @@ def new_personal_search(text):
     }
 
 
+def _entry(personal, username):
+    """Ячейка пользователя (с миграцией старого формата {user: [...]}))."""
+    e = personal.get(username)
+    if isinstance(e, list):
+        e = {"searches": e, "draft": None, "menu": None}
+        personal[username] = e
+    elif not isinstance(e, dict):
+        e = {"searches": [], "draft": None, "menu": None}
+        personal[username] = e
+    e.setdefault("searches", [])
+    e.setdefault("draft", None)
+    e.setdefault("menu", None)
+    return e
+
+
+# ── Мастер настройки (инлайн-меню) ──
+
+WIZ_FIELDS = [
+    ("field", "Где искать", [("everywhere", "Везде"), ("name", "В названии"),
+                             ("description", "В описании")]),
+    ("area", "Регион", [("1", "Москва"), ("2", "СПб"), ("113", "Россия")]),
+    ("schedule", "График", [("any", "Любой"), ("remote", "Удалённо"),
+                            ("fullDay", "Полный день")]),
+    ("rating", "Рейтинг", [("0", "Любой"), ("4.0", "4.0+"), ("4.5", "4.5+")]),
+]
+
+MARK = "✅ "
+
+
+def _draft_val(draft, key):
+    if key == "field":
+        return draft.get("search_field") or "everywhere"
+    if key == "area":
+        return str((draft.get("area") or [113])[0])
+    if key == "schedule":
+        return (draft.get("schedule") or ["any"])[0]
+    if key == "rating":
+        r = draft.get("min_employer_rating") or 0
+        return "4.5" if r >= 4.5 else ("4.0" if r >= 4.0 else "0")
+    return ""
+
+
+def build_menu(entry):
+    draft = entry.get("draft") or {}
+    kb = []
+    for key, _title, opts in WIZ_FIELDS:
+        cur = _draft_val(draft, key)
+        kb.append([{"text": f"{MARK if v == cur else ''}{label}",
+                    "callback_data": f"w:{key}:{v}"} for v, label in opts])
+    kb.append([{"text": "✅ Готово", "callback_data": "w:done"},
+               {"text": "🗑 Отмена", "callback_data": "w:cancel"}])
+    text = (f"⚙️ <b>Настройка подборки «{draft.get('text', '')}»</b>\n"
+            f"Сейчас: {_describe_short(draft)}\n"
+            "Нажимайте кнопки, затем «Готово».\n"
+            "Зарплату и опыт — командами: /salary 150000 · /exp 1-3\n"
+            "(применятся к готовой подборке).")
+    return text, {"inline_keyboard": kb}
+
+
+def _describe_short(s):
+    bits = [f"ищем {FIELD_RU.get(s.get('search_field'), 'везде')}"]
+    bits.append("регион: " + {1: "Москва", 2: "СПб"}.get(
+        (s.get("area") or [113])[0], "Россия"))
+    sched = (s.get("schedule") or [])
+    bits.append("график: " + ({"remote": "удалённо"}.get(sched[0], "любой") if sched else "любой"))
+    bits.append(f"рейтинг ≥ {s.get('min_employer_rating') or 'любой'}")
+    return " · ".join(bits)
+
+
+def apply_wiz(entry, key, val):
+    draft = entry.get("draft")
+    if not draft:
+        return False
+    if key == "field" and val in FIELD_ALIASES.values():
+        draft["search_field"] = val
+    elif key == "area" and val in ("1", "2", "113"):
+        draft["area"] = [int(val)]
+    elif key == "schedule" and val in ("any", "remote", "fullDay"):
+        draft["schedule"] = [] if val == "any" else [val]
+    elif key == "rating" and val in ("0", "4.0", "4.5"):
+        draft["min_employer_rating"] = float(val)
+    else:
+        return False
+    return True
+
+
 def handle_command(cmd, arg, username, personal):
-    """Возвращает текст ответа. personal — список подборок пользователя (mutates)."""
-    mine = personal.setdefault(username, [])
+    """Возвращает текст ответа. personal — dict пользователя (mutates)."""
+    mine = _entry(personal, username)["searches"]
+    if cmd == "setup":
+        if not arg:
+            return ("Использование: /setup <i>ключевые слова</i>, напр. /setup врач терапевт", False)
+        return ("__SETUP__:" + arg[:100], False)
     if cmd == "start":
         return (f"Привет, @{username}! Я присылаю новые вакансии hh.ru "
                 f"и обновляю дашборд каждые ~30 мин.\n\n{HELP}", True)
@@ -366,6 +452,33 @@ def handle_command(cmd, arg, username, personal):
     return (f"Не знаю «/{cmd}».\n\n{HELP}", False)
 
 
+def _send_menu(token, chat_id, entry, message_id=None):
+    """Отправка/обновление меню мастера. Возвращает message_id."""
+    text, kb = build_menu(entry)
+    payload = {"chat_id": str(chat_id), "text": text, "parse_mode": "HTML",
+               "disable_web_page_preview": "true",
+               "reply_markup": json.dumps(kb, ensure_ascii=False)}
+    try:
+        if message_id:
+            payload["message_id"] = message_id
+            telegram._call(token, "editMessageText", payload)
+            return message_id
+        res = telegram._call(token, "sendMessage", payload)
+        return (res.get("result") or {}).get("message_id")
+    except Exception as e:
+        print(f"[cmd] menu send/edit failed: {e}")
+        return message_id
+
+
+def _close_menu(token, chat_id, message_id, text):
+    try:
+        telegram._call(token, "editMessageText", {
+            "chat_id": str(chat_id), "message_id": message_id,
+            "text": text, "parse_mode": "HTML", "disable_web_page_preview": "true"})
+    except Exception as e:
+        print(f"[cmd] menu close failed: {e}")
+
+
 def process_inbox(token, users_cfg, root):
     """Опрашивает getUpdates, исполняет команды.
 
@@ -383,8 +496,47 @@ def process_inbox(token, users_cfg, root):
         return personal, False
 
     known = {u.get("username", "").lstrip("@") for u in users_cfg}
+    dirty_menus = set()
+
     for u in updates.get("result", []):
         offset = max(offset, u.get("update_id", 0) + 1)
+
+        # — кнопки мастера —
+        cb = u.get("callback_query")
+        if cb:
+            frm = cb.get("from") or {}
+            username = frm.get("username") or ""
+            msg = cb.get("message") or {}
+            chat = msg.get("chat") or {}
+            data = cb.get("data") or ""
+            if not username or not data.startswith("w:"):
+                continue
+            if username not in known:
+                users_cfg.append({"username": username, "chat_id": chat.get("id")})
+                known.add(username)
+                users_changed = True
+            entry = _entry(personal, username)
+            if data == "w:done":
+                if entry.get("draft"):
+                    entry["searches"].append(entry["draft"])
+                    n = len(entry["searches"])
+                    entry["draft"] = None
+                    menu = entry.get("menu") or {}
+                    _close_menu(token, chat.get("id"), menu.get("message_id"),
+                                f"✅ Подборка №{n} готова и уже ищет. /list — проверить.")
+                    entry["menu"] = None
+            elif data == "w:cancel":
+                entry["draft"] = None
+                menu = entry.get("menu") or {}
+                _close_menu(token, chat.get("id"), menu.get("message_id"),
+                            "🗑 Настройка отменена.")
+                entry["menu"] = None
+            else:
+                parts = data.split(":", 2)  # w:key:val
+                if len(parts) == 3 and apply_wiz(entry, parts[1], parts[2]):
+                    dirty_menus.add(username)
+            continue
+
         msg = u.get("message") or {}
         text = (msg.get("text") or "").strip()
         frm = msg.get("from") or {}
@@ -407,7 +559,22 @@ def process_inbox(token, users_cfg, root):
                        "Нажмите /start, чтобы зарегистрироваться.")
                 continue
         answer, with_kb = handle_command(cmd, arg, username, personal)
+        if answer.startswith("__SETUP__:"):
+            entry = _entry(personal, username)
+            entry["draft"] = new_personal_search(answer[len("__SETUP__:"):])
+            mid = _send_menu(token, chat.get("id"), entry,
+                             (entry.get("menu") or {}).get("message_id"))
+            entry["menu"] = {"chat_id": chat.get("id"), "message_id": mid}
+            dirty_menus.discard(username)
+            continue
         _reply(token, chat.get("id"), answer, kb=with_kb)
+
+    # перерисовать меню с учётом всех нажатий за прогон
+    for username in dirty_menus:
+        entry = _entry(personal, username)
+        menu = entry.get("menu") or {}
+        if entry.get("draft") and menu.get("message_id"):
+            _send_menu(token, menu.get("chat_id"), entry, menu.get("message_id"))
 
     _save_json(os.path.join(data_dir, "personal.json"), personal)
     _save_json(os.path.join(data_dir, "tg_offset.json"), {"offset": offset})
