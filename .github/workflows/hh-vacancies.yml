@@ -6,6 +6,8 @@ on:
     # Частый цикл нужен, чтобы кнопки мастера /setup отзывались быстро.
     - cron: "*/5 * * * *"
   workflow_dispatch: {}  # ручной запуск из вкладки Actions
+  repository_dispatch:  # внешний cron (запасной триггер, см. README)
+    types: [tick]
 
 permissions:
   contents: write
@@ -14,7 +16,7 @@ permissions:
 
 concurrency:
   group: hhbot
-  cancel-in-progress: false
+  cancel-in-progress: true  # два тика подряд не должны дублировать рассылку
 
 jobs:
   fetch-and-notify:
