@@ -2,6 +2,8 @@
 // Чистые функции поверх store + tg. Порт команд Python-версии + нативный мастер.
 
 import { sendMessage, editMessage, answerCallback } from "./tg.mjs";
+import { formatVacancy } from "./filters.mjs";
+import { SEEDS } from "./seeds.mjs";
 
 export const BOT = () => process.env.BOT_USERNAME || "hhedz_bot";
 
@@ -32,7 +34,8 @@ export function describe(s) {
   const bits = [`«${s.text}»`, `ищем ${FIELD_RU[s.search_field] || "везде"}`];
   bits.push("регион: " + (s.area || []).map((a) => AREA_IDS[a] || a).join(","));
   const sch = s.schedule || [];
-  bits.push("график: " + (sch.length ? sch.join(",") : "любой"));
+  const schRu = { remote: "удалённо", fullDay: "полный день", flexible: "гибкий", shift: "сменный", flyInFlyOut: "вахта" };
+  bits.push("график: " + (sch.length ? sch.map((x) => schRu[x] || x).join(",") : "любой"));
   if (s.salary_from) bits.push(`от ${Number(s.salary_from).toLocaleString("ru-RU")} ₽`);
   if (s.min_employer_rating) bits.push(`рейтинг ≥ ${s.min_employer_rating}`);
   if (s.experience?.length) bits.push("опыт: " + s.experience.map((e) => EXP_RU[e] || e).join(","));
@@ -102,11 +105,33 @@ export function mainMenu() {
     text: "🤖 <b>Мониторинг вакансий hh.ru</b>\nПроверка каждые 3 часа. Что делаем?",
     kb: { inline_keyboard: [
       [btn("🔍 Новая подборка", "menu:new")],
+      [btn("🆕 Что нового", "menu:fresh")],
       [btn("📋 Мои подборки", "menu:list")],
       [btn("📊 Дашборд", "menu:dash")],
       [btn("❓ Помощь", "menu:help")],
     ]},
   };
+}
+
+// Последние вакансии по подпискам пользователя (из кэша планового сбора).
+export async function showFresh(ctx, state) {
+  const { chatId } = ctx;
+  const cache = state.cache || { generated_at: "", vacancies: [] };
+  const seedNames = SEEDS.map((s) => s.name);
+  const myNames = new Set([...seedNames, ...state.searches.map((s) => s.name)]);
+  const mine = (cache.vacancies || []).filter((v) =>
+    (v.search_names || []).some((n) => myNames.has(n)));
+  mine.sort((a, b) => String(b.published_at || "").localeCompare(String(a.published_at || "")));
+  const top = mine.slice(0, 8);
+  if (!top.length) {
+    await sendMessage(chatId, "Пока пусто — кэш обновляется каждые 3 часа.");
+    return;
+  }
+  await sendMessage(chatId,
+    `🆕 <b>Последние по вашим подпискам</b> (обновлено ${cache.generated_at || "—"}):`);
+  for (const v of top) {
+    await sendMessage(chatId, formatVacancy(v, (v.search_names || []).join(" · ")));
+  }
 }
 
 export function wizardMenu(draft) {
@@ -158,8 +183,9 @@ export const HELP =
   "🤖 Я слежу за hh.ru каждые 3 часа и присылаю новые вакансии.\n\n" +
   "• <b>Новая подборка</b> — мастер с кнопками: ключевые слова → регион → график → зарплата → рейтинг.\n" +
   "• <b>Мои подборки</b> — вкл/выкл, изменить, удалить.\n" +
+  "• <b>Что нового</b> — последние вакансии по подпискам прямо сейчас.\n" +
   "• <b>Дашборд</b> — все вакансии с фильтрами.\n\n" +
-  "Быстрые команды: /list, /del 1, /on 1, /off 1, /add <i>текст</i>.";
+  "Быстрые команды: /new, /list, /del 1, /on 1, /off 1, /add <i>текст</i>.";
 
 // ── Обработка ──
 // Возвращает список действий для handler'а через колбэки окружения.
@@ -176,6 +202,7 @@ export async function onText(ctx, text, state) {
     return;
   }
   if (t === "/help") { await sendMessage(chatId, HELP); return; }
+  if (t === "/new") { await showFresh(ctx, state); return; }
   if (t === "/list") {
     const m = listMenu(state.searches);
     await sendMessage(chatId, m.text, { reply_markup: m.kb });
@@ -245,6 +272,10 @@ export async function onCallback(ctx, data, msgId, state) {
   const [ns, ...rest] = data.split(":");
   if (ns === "menu") {
     const m = mainMenu();
+    if (rest[0] === "fresh") {
+      await showFresh(ctx, state);
+      return;
+    }
     if (rest[0] === "new") {
       state.awaiting = "keyword";
       await editMessage(chatId, msgId, "🔍 <b>Что ищем?</b>\nНапишите ключевые слова одним сообщением (напр. <i>врач терапевт</i>).");

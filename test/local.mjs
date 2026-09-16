@@ -90,4 +90,9 @@ assert(data.vacancies.length === cache.vacancies.length, "api-data отдаёт 
 assert(data.searches.length >= 3, "api-data отдаёт сиды + личные");
 assert(data.bot_username === "hhedz_bot", "bot_username в ответе");
 
+await msg("/new");
+const freshMsgs = sent.filter((s) => s.method === "sendMessage").slice(-9);
+assert(freshMsgs[0]?.body.text.includes("Последние по вашим подпискам"), "/new → заголовок");
+assert(freshMsgs.length > 1 && freshMsgs[1].body.text.includes("💼"), "/new → карточки вакансий");
+
 console.log(`\nAPI-вызовов Telegram смокировано: ${sent.length}`);

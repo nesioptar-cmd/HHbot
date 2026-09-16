@@ -8,6 +8,7 @@ import { onText, onCallback } from "../lib/bot.mjs";
 async function loadState(chatId) {
   const subs = (await storeGet("subs", {})) || {};
   const drafts = (await storeGet("drafts", {})) || {};
+  const cache = (await storeGet("cache", null)) || { generated_at: "", vacancies: [] };
   const u = subs[String(chatId)] || { username: "", searches: [] };
   return {
     subs, drafts,
@@ -16,6 +17,7 @@ async function loadState(chatId) {
       searches: u.searches || [],
       awaiting: drafts[String(chatId)]?.awaiting || null,
       draft: drafts[String(chatId)]?.draft || null,
+      cache,
     },
   };
 }
