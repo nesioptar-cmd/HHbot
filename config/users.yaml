@@ -13,7 +13,7 @@
 # Формат: username БЕЗ @, chat_id — число.
 
 users:
-  # - username: "ivan_petrov"
-  #   chat_id: 123456789
+  - username: "Pavel_huntflow"
+    chat_id: 5280181389
   # - username: "maria_s"
   #   chat_id: 987654321
