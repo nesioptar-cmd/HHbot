@@ -18,6 +18,7 @@ sys.path.insert(0, HERE)
 
 import hh_client
 import telegram
+import bot_commands
 from filters import apply_filters
 from dashboard import build_dashboard
 
@@ -68,13 +69,37 @@ def main():
 
     searches = load_config(os.path.join(ROOT, "config", "searches.yaml")).get("searches", [])
     users_cfg = load_config(os.path.join(ROOT, "config", "users.yaml")).get("users", []) or []
-    if not searches:
-        print("[main] config/searches.yaml пуст — нечего искать.")
-        return
 
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
     hh_token = os.environ.get("HH_ACCESS_TOKEN", "")
     hh_ua = os.environ.get("HH_USER_AGENT", "hh-vacancy-dashboard/1.0 (admin@yourdomain.ru)")
+
+    # 0. Команды из Telegram (личные подборки + авторегистрация)
+    if token:
+        try:
+            personal, users_changed = bot_commands.process_inbox(token, users_cfg, ROOT)
+        except Exception as e:
+            print(f"[main] commands error: {e}")
+            personal, users_changed = {}, False
+        if users_changed:
+            try:
+                import yaml
+                with open(os.path.join(ROOT, "config", "users.yaml"), "w", encoding="utf-8") as f:
+                    yaml.safe_dump({"users": users_cfg}, f, allow_unicode=True, sort_keys=False)
+            except Exception as e:
+                print(f"[main] users.yaml save failed: {e}")
+        for owner, plist in (personal or {}).items():
+            for i, p in enumerate(plist, 1):
+                p = dict(p)
+                p["id"] = f"u_{owner}_{i}"
+                p.setdefault("notify_users", [owner])
+                searches.append(p)
+    else:
+        print("[main] TELEGRAM_BOT_TOKEN не задан — команды пропущены.")
+
+    if not searches:
+        print("[main] Нет подборок (ни общих, ни личных) — нечего искать.")
+        return
 
     seen = load_seen(os.path.join(ROOT, "data", "seen.json"))
     all_vac, fresh = [], []
