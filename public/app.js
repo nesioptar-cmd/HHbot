@@ -222,12 +222,30 @@ function fmtSearchLine(s) {
 
 function openSettings() {
   const box = document.getElementById('settings-searches');
-  box.innerHTML = searches.length
-    ? searches.map((s) => `<p style="margin-bottom:.6rem"><b>${esc(s.name)}</b>`
+  const wa = window.Telegram && window.Telegram.WebApp;
+  const me = (wa && wa.initDataUnsafe && wa.initDataUnsafe.user) || null;
+  if (wa) { try { wa.ready(); wa.expand(); } catch (e) { /* ignore */ } }
+  // порядковый номер внутри подписок владельца (совпадает с индексом в боте)
+  const perOwner = {};
+  const rows = searches.map((s) => {
+    let ctl = '';
+    if (s.personal && me && s.owner && s.owner === me.username) {
+      const idx = (perOwner[s.owner] = (perOwner[s.owner] || 0) + 1) - 1;
+      ctl = ` <button class="btn btn-ghost btn-sm" data-sub="toggle" data-idx="${idx}" title="Вкл/выкл">`
+        + `${s.enabled === false ? '▶' : '⏸'}</button>`
+        + ` <button class="btn btn-ghost btn-sm" data-sub="delete" data-idx="${idx}" title="Удалить">🗑</button>`;
+    } else if (s.personal) {
+      perOwner[s.owner] = (perOwner[s.owner] || 0) + 1;
+    }
+    return `<p style="margin-bottom:.6rem"><b>${esc(s.name)}</b>`
       + (s.owner ? ` <span class="form-hint">@${esc(s.owner)}</span>` : '')
       + (s.enabled === false ? ` <span class="form-hint">⏸ выключена</span>` : '')
-      + `<br><span class="form-hint">${esc(fmtSearchLine(s))}</span></p>`).join('')
-    : '<p class="form-hint">Подборки не заданы.</p>';
+      + ctl
+      + `<br><span class="form-hint">${esc(fmtSearchLine(s))}</span></p>`;
+  }).join('');
+  box.innerHTML = (searches.length ? rows : '<p class="form-hint">Подборки не заданы.</p>')
+    + (me ? '' : '<p class="form-hint" style="margin-top:.5rem">Управление своими подписками '
+      + '(удалить/выключить) доступно, если открыть дашборд через кнопку 📊 в боте.</p>');
   document.getElementById('settings-telegram').innerHTML =
     `<p class="form-hint">Получателей: <b>${notifyCount}</b>. Рассылку отправляет GitHub Actions, `
     + `бот пишет только тем, кто нажал /start и добавлен в <code>config/users.yaml</code>.</p>`;
@@ -283,6 +301,32 @@ async function refresh(showToast) {
   }
 }
 
+// ── Управление своими подписками с сайта (только внутри Telegram WebApp) ──
+async function subAction(action, idx) {
+  const wa = window.Telegram && window.Telegram.WebApp;
+  if (!wa || !wa.initData) { toast('Откройте дашборд через кнопку 📊 в боте', 'error'); return; }
+  if (action === 'delete' && !confirm('Удалить эту подписку?')) return;
+  try {
+    const res = await fetch('/.netlify/functions/api-subs', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ initData: wa.initData, action, index: idx }),
+    });
+    const data = await res.json();
+    if (data.ok) {
+      toast(action === 'delete' ? `Удалена: ${data.removed}` : 'Готово', 'success');
+      await refresh(false);
+      openSettings();
+    } else {
+      toast(data.error === 'noauth'
+        ? 'Не удалось подтвердить Telegram. Переоткройте дашборд из бота.'
+        : (data.error || 'Ошибка'), 'error');
+    }
+  } catch (e) {
+    toast('Ошибка сети: ' + e.message, 'error');
+  }
+}
+
 // ── Init ──
 function init() {
   initTheme();
@@ -314,6 +358,11 @@ function init() {
   };
   document.getElementById('settings-modal').addEventListener('click', (e) => {
     if (e.target.id === 'settings-modal') closeSettings();
+  });
+  document.getElementById('settings-searches').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-sub]');
+    if (!b) return;
+    subAction(b.getAttribute('data-sub'), parseInt(b.getAttribute('data-idx'), 10));
   });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSettings(); });
   ['f-q', 'f-search', 'f-sched', 'f-sort', 'f-rate'].forEach((id) => {

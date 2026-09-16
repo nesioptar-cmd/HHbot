@@ -61,6 +61,14 @@ curl "https://api.telegram.org/bot<ТОКЕН>/setWebhook" \
 - Быстрые команды: `/new`, `/list`, `/del 1`, `/on 1`, `/off 1`,
   `/add текст`, `/add текст | москва | удалённо | 4.5` (и `/replace N | …`).
 
+## Управление подписками с сайта
+
+Бейджи подборок в дашборде кликабельны (скрыть/показать, только вид).
+Удаление и вкл/выкл — в Настройках дашборда, **открытого через кнопку 📊 в боте**:
+у своих подписок появляются 🗑 и ⏸/▶. Подпись Telegram WebApp проверяется
+на сервере (`api-subs`): чужие подписки тронуть нельзя, из обычного браузера
+кнопок нет. Дублирующий путь — `/del`, `/on`, `/off` в чате.
+
 ## Локальная проверка
 
 ```bash
@@ -76,6 +84,7 @@ node test/local.mjs   # webhook-диалоги (мок Telegram) + живой fe
 netlify/functions/tg-webhook.mjs    приём webhook, мгновенные ответы
 netlify/functions/fetch-vacancies.mjs  сбор раз в 3 часа (schedule в netlify.toml)
 netlify/functions/api-data.mjs      данные для дашборда
+netlify/functions/api-subs.mjs      удаление/вкл-выкл подписок с сайта (подпись WebApp)
 netlify/lib/bot.mjs                 меню, мастер, команды, подписки
 netlify/lib/hh.mjs                  hh.ru: shards + официальный API
 netlify/lib/filters.mjs             фильтры, рейтинг, оформление сообщений
@@ -83,7 +92,8 @@ netlify/lib/tg.mjs                  Telegram Bot API
 netlify/lib/seeds.mjs               общие подборки (врач-терапевт, телемедицина)
 netlify/lib/store.mjs               Blobs / файлы
 public/                             дашборд (тёмная/светлая тема, фильтры, конструктор)
-test/local.mjs                      стенд
+test/local.mjs                      стенд (диалоги, fetch, api)
+test/webapp.mjs                     стенд подписи WebApp и api-subs
 src/                                старая Python-версия v1 (не используется, на удаление)
 config/                             старые yaml v1 (не используются, на удаление)
 ```
