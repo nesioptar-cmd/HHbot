@@ -1,5 +1,7 @@
 # HHbot v2 — вакансии hh.ru → Telegram-бот с меню + дашборд (Netlify)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/61a11d3b-8074-4b38-8ec8-7fef8018f18c/deploy-status)](https://app.netlify.com/projects/hhbot-vacancies/deploys)
+
 Telegram-бот с **нативным меню кнопками**: мастер подборки
 (ключевые слова → где искать → регион → график → зарплата → рейтинг),
 подписка на обновления **каждые 3 часа**, дашборд с фильтрами.
