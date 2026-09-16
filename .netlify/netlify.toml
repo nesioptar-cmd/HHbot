@@ -1,0 +1,31 @@
+functionsDirectory = "/Users/udov/Documents/Проекты/HHbot/netlify/functions"
+functionsDirectoryOrigin = "config-v1"
+plugins = []
+headers = []
+redirects = []
+
+[build]
+publish = "/Users/udov/Documents/Проекты/HHbot/public"
+publishOrigin = "config"
+functions = "/Users/udov/Documents/Проекты/HHbot/netlify/functions"
+
+[build.environment]
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]
+
+[functions]
+
+[functions.fetch-vacancies]
+schedule = "0 */3 * * *"
+
+[functions."*"]

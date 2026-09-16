@@ -26,7 +26,17 @@ let blobStore = null;
 async function blobs() {
   if (blobStore) return blobStore;
   const { getStore } = await import("@netlify/blobs");
-  blobStore = getStore("hhbot");
+  // Явная конфигурация для CLI-деплоев (автоконтекст есть не всегда).
+  // Локально через `netlify dev` переменные подставит сам Netlify.
+  if (process.env.BLOBS_SITE_ID && process.env.BLOBS_TOKEN) {
+    blobStore = getStore({
+      name: "hhbot",
+      siteID: process.env.BLOBS_SITE_ID,
+      token: process.env.BLOBS_TOKEN,
+    });
+  } else {
+    blobStore = getStore("hhbot");
+  }
   return blobStore;
 }
 
