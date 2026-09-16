@@ -158,7 +158,10 @@ def main():
                 per_chat.setdefault(cid, []).append((s, v))
 
     if not per_chat:
-        print("[main] Нет получателей с chat_id — запустите resolve_users.py после /start.")
+        if not by_user:
+            print("[main] Нет получателей с chat_id — новички должны нажать /start.")
+        else:
+            print("[main] Новых вакансий для рассылки нет.")
         return
 
     head_tpl = "🆕 <b>{n} новых</b> по подборке «{name}»"
