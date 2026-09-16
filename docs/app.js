@@ -63,7 +63,7 @@ function saveSeen() {
     localStorage.setItem(SEEN_KEY, JSON.stringify([...seen].slice(-5000)));
   } catch (e) { /* ignore */ }
 }
-const vacKey = (v) => `${v.search_id}:${v.id}`;
+const vacKey = (v) => String(v.id);
 
 // ── Toast ──
 function toast(msg, type = 'info') {
@@ -101,7 +101,11 @@ function renderBadges() {
     return;
   }
   const counts = {};
-  vacancies.forEach((v) => { counts[v.search_id] = (counts[v.search_id] || 0) + 1; });
+  vacancies.forEach((v) => {
+    for (const sid of (v.search_ids || [v.search_id])) {
+      if (sid) counts[sid] = (counts[sid] || 0) + 1;
+    }
+  });
   el.innerHTML = searches.map((s) => {
     const n = counts[s.id] || 0;
     return `<span class="badge badge-primary">`
@@ -133,7 +137,9 @@ function cardHtml(v) {
   if (SCHEDULE_RU[v.schedule]) tags.push(SCHEDULE_RU[v.schedule]);
   if (EXPERIENCE_RU[v.experience]) tags.push(EXPERIENCE_RU[v.experience]);
   if (v.area) tags.push(v.area);
-  if (v.search_name) tags.push(v.search_name);
+  for (const sn of (v.search_names || (v.search_name ? [v.search_name] : []))) {
+    if (sn) tags.push(sn);
+  }
   return `<div class="vacancy-card ${isNew ? 'is-new' : ''}">`
     + `<div class="vacancy-logo">${esc((v.employer || '?').charAt(0).toUpperCase())}</div>`
     + `<div class="vacancy-body">`
@@ -163,12 +169,13 @@ function currentFilters() {
 function renderAll() {
   renderBadges();
   const f = currentFilters();
-  let list = vacancies.filter((v) =>
-    (!f.search || v.search_id === f.search)
-    && (!f.sched || v.schedule === f.sched)
-    && ((v.rating || 0) >= f.minRate)
-    && (!f.q || `${v.name} ${v.employer}`.toLowerCase().includes(f.q)),
-  );
+  let list = vacancies.filter((v) => {
+    const sids = v.search_ids || [v.search_id];
+    return (!f.search || sids.includes(f.search))
+      && (!f.sched || v.schedule === f.sched)
+      && ((v.rating || 0) >= f.minRate)
+      && (!f.q || `${v.name} ${v.employer}`.toLowerCase().includes(f.q));
+  });
   if (f.sort === 'rating') list = [...list].sort((a, b) => (b.rating || 0) - (a.rating || 0));
   else if (f.sort === 'salary') {
     list = [...list].sort((a, b) => ((b.salary_from || b.salary_to || 0) - (a.salary_from || a.salary_to || 0)));

@@ -24,7 +24,27 @@
         "max_results": 30
       }
     ],
-    "draft": null,
-    "menu": null
+    "draft": {
+      "id": "",
+      "name": "👤 врач терапевт",
+      "text": "врач терапевт",
+      "search_field": "everywhere",
+      "area": [
+        113
+      ],
+      "schedule": [],
+      "employment": [],
+      "experience": [],
+      "salary_from": 0,
+      "only_with_salary": false,
+      "search_period": 7,
+      "min_employer_rating": 0.0,
+      "exclude_keywords": [],
+      "max_results": 30
+    },
+    "menu": {
+      "chat_id": 5280181389,
+      "message_id": 36
+    }
   }
 }

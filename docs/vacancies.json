@@ -19,6 +19,53 @@
     "experience": "noExperience",
     "employment": "PROJECT",
     "published_at": "2026-09-16T12:08:14.060+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
+    "search_id": "terapevt",
+    "search_name": "Врач-терапевт"
+  },
+  {
+    "id": "136592189",
+    "name": "Главный врач-терапевт в стоматологию (управление + прием пациентов)",
+    "url": "https://hh.ru/vacancy/136592189",
+    "area": "Москва",
+    "area_id": "1",
+    "employer": "Стоматология ОДИ",
+    "employer_id": "9594708",
+    "rating": 4.6,
+    "reviews_count": 6,
+    "salary_from": 300000,
+    "salary_to": 450000,
+    "currency": "RUR",
+    "schedule": "flexible",
+    "work_formats": [
+      "ON_SITE"
+    ],
+    "experience": "between3And6",
+    "employment": "FULL",
+    "published_at": "2026-09-15T12:41:54.666+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -42,29 +89,18 @@
     "experience": "between3And6",
     "employment": "PART",
     "published_at": "2026-09-15T10:49:51.562+03:00",
-    "search_id": "terapevt",
-    "search_name": "Врач-терапевт"
-  },
-  {
-    "id": "135841757",
-    "name": "Стоматолог-терапевт-ортопед",
-    "url": "https://hh.ru/vacancy/135841757",
-    "area": "Санкт-Петербург",
-    "area_id": "2",
-    "employer": "Центр Цифровой Имплантации и Протезирования",
-    "employer_id": "9373181",
-    "rating": 3.6,
-    "reviews_count": 7,
-    "salary_from": 150000,
-    "salary_to": 400000,
-    "currency": "RUR",
-    "schedule": "fullDay",
-    "work_formats": [
-      "ON_SITE"
+    "search_ids": [
+      "terapevt"
     ],
-    "experience": "between3And6",
-    "employment": "FULL",
-    "published_at": "2026-09-16T12:15:51.977+03:00",
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -91,6 +127,18 @@
     "experience": "noExperience",
     "employment": "PART",
     "published_at": "2026-09-15T16:52:05.738+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -114,6 +162,32 @@
     "experience": "between1And3",
     "employment": "PART",
     "published_at": "2026-09-15T18:43:02.073+03:00",
+    "search_ids": [
+      "terapevt",
+      "telemed",
+      "u_Pavel_huntflow_1"
+    ],
+    "search_names": [
+      "Врач-терапевт",
+      "Телемедицина",
+      "👤 врач телемедицина терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ],
+      [
+        [],
+        "Телемедицина"
+      ],
+      [
+        [
+          "Pavel_huntflow"
+        ],
+        "👤 врач телемедицина терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -139,6 +213,24 @@
     "experience": "noExperience",
     "employment": "PART",
     "published_at": "2026-09-16T08:02:51.181+03:00",
+    "search_ids": [
+      "terapevt",
+      "telemed"
+    ],
+    "search_names": [
+      "Врач-терапевт",
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ],
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -162,6 +254,18 @@
     "experience": "between3And6",
     "employment": "FULL",
     "published_at": "2026-09-13T16:17:46.829+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -185,6 +289,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-14T11:18:12.198+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -209,6 +325,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-15T09:40:37.639+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -232,6 +360,32 @@
     "experience": "between1And3",
     "employment": "PART",
     "published_at": "2026-09-16T09:11:32.788+03:00",
+    "search_ids": [
+      "terapevt",
+      "telemed",
+      "u_Pavel_huntflow_1"
+    ],
+    "search_names": [
+      "Врач-терапевт",
+      "Телемедицина",
+      "👤 врач телемедицина терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ],
+      [
+        [],
+        "Телемедицина"
+      ],
+      [
+        [
+          "Pavel_huntflow"
+        ],
+        "👤 врач телемедицина терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -255,6 +409,18 @@
     "experience": "between3And6",
     "employment": "FULL",
     "published_at": "2026-09-15T09:26:52.052+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -278,6 +444,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-15T10:49:26.367+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -301,6 +479,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-13T19:03:21.512+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -324,6 +514,18 @@
     "experience": "between1And3",
     "employment": "PART",
     "published_at": "2026-09-16T09:23:33.358+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -347,6 +549,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-14T10:01:21.176+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -370,6 +584,18 @@
     "experience": "between1And3",
     "employment": "FULL",
     "published_at": "2026-09-16T14:08:14.249+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -393,6 +619,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-14T10:01:21.176+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -416,6 +654,18 @@
     "experience": "between3And6",
     "employment": "FULL",
     "published_at": "2026-09-15T12:30:38.619+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -439,6 +689,18 @@
     "experience": "between1And3",
     "employment": "FULL",
     "published_at": "2026-09-14T13:21:33.875+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -462,29 +724,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-15T16:32:47.230+03:00",
-    "search_id": "terapevt",
-    "search_name": "Врач-терапевт"
-  },
-  {
-    "id": "136457659",
-    "name": "Врач-терапевт",
-    "url": "https://hh.ru/vacancy/136457659",
-    "area": "Тобольск",
-    "area_id": "1345",
-    "employer": "Мой медицинский центр",
-    "employer_id": "610351",
-    "rating": 4.2,
-    "reviews_count": 182,
-    "salary_from": 116000,
-    "salary_to": 116000,
-    "currency": "RUR",
-    "schedule": "fullDay",
-    "work_formats": [
-      "ON_SITE"
+    "search_ids": [
+      "terapevt"
     ],
-    "experience": "between1And3",
-    "employment": "FULL",
-    "published_at": "2026-09-15T12:05:44.414+03:00",
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -508,6 +759,53 @@
     "experience": "between1And3",
     "employment": "FULL",
     "published_at": "2026-09-16T08:11:46.057+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
+    "search_id": "terapevt",
+    "search_name": "Врач-терапевт"
+  },
+  {
+    "id": "136457659",
+    "name": "Врач-терапевт",
+    "url": "https://hh.ru/vacancy/136457659",
+    "area": "Тобольск",
+    "area_id": "1345",
+    "employer": "Мой медицинский центр",
+    "employer_id": "610351",
+    "rating": 4.2,
+    "reviews_count": 182,
+    "salary_from": 116000,
+    "salary_to": 116000,
+    "currency": "RUR",
+    "schedule": "fullDay",
+    "work_formats": [
+      "ON_SITE"
+    ],
+    "experience": "between1And3",
+    "employment": "FULL",
+    "published_at": "2026-09-15T12:05:44.414+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -531,52 +829,24 @@
     "experience": "between3And6",
     "employment": "FULL",
     "published_at": "2026-09-14T10:38:47.825+03:00",
-    "search_id": "terapevt",
-    "search_name": "Врач-терапевт"
-  },
-  {
-    "id": "137433600",
-    "name": "Врач-терапевт",
-    "url": "https://hh.ru/vacancy/137433600",
-    "area": "Пенза",
-    "area_id": "71",
-    "employer": "Клиника Нева (ООО Азбука здоровья)",
-    "employer_id": "4983286",
-    "rating": 4.2,
-    "reviews_count": 76,
-    "salary_from": null,
-    "salary_to": null,
-    "currency": "",
-    "schedule": "flexible",
-    "work_formats": [
-      "ON_SITE"
+    "search_ids": [
+      "terapevt",
+      "telemed"
     ],
-    "experience": "between1And3",
-    "employment": "FULL",
-    "published_at": "2026-09-16T13:09:21.151+03:00",
-    "search_id": "terapevt",
-    "search_name": "Врач-терапевт"
-  },
-  {
-    "id": "137286196",
-    "name": "Врач-терапевт",
-    "url": "https://hh.ru/vacancy/137286196",
-    "area": "Барнаул",
-    "area_id": "11",
-    "employer": "ГЦМ Диал Мед",
-    "employer_id": "3341370",
-    "rating": 0.0,
-    "reviews_count": 0,
-    "salary_from": null,
-    "salary_to": null,
-    "currency": "",
-    "schedule": "fullDay",
-    "work_formats": [
-      "ON_SITE"
+    "search_names": [
+      "Врач-терапевт",
+      "Телемедицина"
     ],
-    "experience": "noExperience",
-    "employment": "FULL",
-    "published_at": "2026-09-14T08:12:22.152+03:00",
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ],
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -600,203 +870,31 @@
     "experience": "between3And6",
     "employment": "FULL",
     "published_at": "2026-09-15T15:26:31.045+03:00",
-    "search_id": "terapevt",
-    "search_name": "Врач-терапевт"
-  },
-  {
-    "id": "137353927",
-    "name": "Врач-терапевт приемного отделения",
-    "url": "https://hh.ru/vacancy/137353927",
-    "area": "Москва",
-    "area_id": "1",
-    "employer": "Центральный клинический госпиталь ФТС России",
-    "employer_id": "660274",
-    "rating": 3.5,
-    "reviews_count": 11,
-    "salary_from": 190000,
-    "salary_to": 200000,
-    "currency": "RUR",
-    "schedule": "fullDay",
-    "work_formats": [
-      "ON_SITE"
+    "search_ids": [
+      "terapevt"
     ],
-    "experience": "moreThan6",
-    "employment": "FULL",
-    "published_at": "2026-09-15T09:24:55.549+03:00",
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
   {
-    "id": "137293883",
+    "id": "137433600",
     "name": "Врач-терапевт",
-    "url": "https://hh.ru/vacancy/137293883",
-    "area": "Красноярск",
-    "area_id": "54",
-    "employer": "Владко",
-    "employer_id": "3201815",
-    "rating": 0.0,
-    "reviews_count": 0,
-    "salary_from": 80000,
-    "salary_to": null,
-    "currency": "RUR",
-    "schedule": "flexible",
-    "work_formats": [
-      "ON_SITE"
-    ],
-    "experience": "between3And6",
-    "employment": "PART",
-    "published_at": "2026-09-14T09:57:48.240+03:00",
-    "search_id": "terapevt",
-    "search_name": "Врач-терапевт"
-  },
-  {
-    "id": "137118606",
-    "name": "Врач-терапевт приемного отделения",
-    "url": "https://hh.ru/vacancy/137118606",
-    "area": "Москва",
-    "area_id": "1",
-    "employer": "Правительство Москвы",
-    "employer_id": "895945",
-    "rating": 4.1,
-    "reviews_count": 1785,
-    "salary_from": null,
-    "salary_to": null,
-    "currency": "",
-    "schedule": "shift",
-    "work_formats": [
-      "ON_SITE"
-    ],
-    "experience": "noExperience",
-    "employment": "FULL",
-    "published_at": "2026-09-15T09:02:33.643+03:00",
-    "search_id": "terapevt",
-    "search_name": "Врач-терапевт"
-  },
-  {
-    "id": "137138567",
-    "name": "Врач-терапевт",
-    "url": "https://hh.ru/vacancy/137138567",
-    "area": "Санкт-Петербург",
-    "area_id": "2",
-    "employer": "Городской Медико-Социальный Центр",
-    "employer_id": "5241754",
-    "rating": 1.6,
-    "reviews_count": 2,
-    "salary_from": 80000,
-    "salary_to": null,
-    "currency": "RUR",
-    "schedule": "fullDay",
-    "work_formats": [
-      "FIELD_WORK"
-    ],
-    "experience": "noExperience",
-    "employment": "FULL",
-    "published_at": "2026-09-16T09:34:18.431+03:00",
-    "search_id": "terapevt",
-    "search_name": "Врач-терапевт"
-  },
-  {
-    "id": "137127675",
-    "name": "Врач-терапевт",
-    "url": "https://hh.ru/vacancy/137127675",
-    "area": "Москва",
-    "area_id": "1",
-    "employer": "МЦ",
-    "employer_id": "3208395",
+    "url": "https://hh.ru/vacancy/137433600",
+    "area": "Пенза",
+    "area_id": "71",
+    "employer": "Клиника Нева (ООО Азбука здоровья)",
+    "employer_id": "4983286",
     "rating": 4.2,
-    "reviews_count": 32,
-    "salary_from": 300000,
-    "salary_to": null,
-    "currency": "RUR",
-    "schedule": "fullDay",
-    "work_formats": [
-      "ON_SITE"
-    ],
-    "experience": "moreThan6",
-    "employment": "FULL",
-    "published_at": "2026-09-14T19:22:17.615+03:00",
-    "search_id": "terapevt",
-    "search_name": "Врач-терапевт"
-  },
-  {
-    "id": "132282223",
-    "name": "Врач-терапевт (телемедицина)",
-    "url": "https://hh.ru/vacancy/132282223",
-    "area": "Москва",
-    "area_id": "1",
-    "employer": "Сальвияклиник",
-    "employer_id": "12434988",
-    "rating": 4.8,
-    "reviews_count": 1,
-    "salary_from": 126000,
-    "salary_to": 180000,
-    "currency": "RUR",
-    "schedule": "remote",
-    "work_formats": [
-      "REMOTE"
-    ],
-    "experience": "noExperience",
-    "employment": "PART",
-    "published_at": "2026-09-14T10:39:11.886+03:00",
-    "search_id": "terapevt",
-    "search_name": "Врач-терапевт"
-  },
-  {
-    "id": "137156641",
-    "name": "Врач-терапевт",
-    "url": "https://hh.ru/vacancy/137156641",
-    "area": "Москва",
-    "area_id": "1",
-    "employer": "Форс Клиник",
-    "employer_id": "10251097",
-    "rating": 3.8,
-    "reviews_count": 4,
-    "salary_from": 72000,
-    "salary_to": null,
-    "currency": "RUR",
-    "schedule": "flexible",
-    "work_formats": [
-      "ON_SITE"
-    ],
-    "experience": "between1And3",
-    "employment": "PART",
-    "published_at": "2026-09-15T13:45:36.167+03:00",
-    "search_id": "terapevt",
-    "search_name": "Врач-терапевт"
-  },
-  {
-    "id": "137301210",
-    "name": "Врач-терапевт участковый, амбулаторный прием",
-    "url": "https://hh.ru/vacancy/137301210",
-    "area": "Москва",
-    "area_id": "1",
-    "employer": "ГБУЗ г.Москвы ГП№170 ДЗМ",
-    "employer_id": "2936053",
-    "rating": 3.8,
-    "reviews_count": 16,
-    "salary_from": 210000,
-    "salary_to": 280000,
-    "currency": "RUR",
-    "schedule": "fullDay",
-    "work_formats": [
-      "ON_SITE"
-    ],
-    "experience": "between1And3",
-    "employment": "FULL",
-    "published_at": "2026-09-14T11:28:58.789+03:00",
-    "search_id": "terapevt",
-    "search_name": "Врач-терапевт"
-  },
-  {
-    "id": "137232211",
-    "name": "Врач-терапевт",
-    "url": "https://hh.ru/vacancy/137232211",
-    "area": "Санкт-Петербург",
-    "area_id": "2",
-    "employer": "Медицинский центр на Комендантском",
-    "employer_id": "5711623",
-    "rating": 4.4,
-    "reviews_count": 6,
+    "reviews_count": 76,
     "salary_from": null,
     "salary_to": null,
     "currency": "",
@@ -804,55 +902,21 @@
     "work_formats": [
       "ON_SITE"
     ],
-    "experience": "noExperience",
-    "employment": "PART",
-    "published_at": "2026-09-14T09:15:33.020+03:00",
-    "search_id": "terapevt",
-    "search_name": "Врач-терапевт"
-  },
-  {
-    "id": "137423967",
-    "name": "Врач-терапевт",
-    "url": "https://hh.ru/vacancy/137423967",
-    "area": "Горно-Алтайск",
-    "area_id": "10",
-    "employer": "АЛТАЙ ПЭЛАС",
-    "employer_id": "2582116",
-    "rating": 3.6,
-    "reviews_count": 56,
-    "salary_from": 170000,
-    "salary_to": null,
-    "currency": "RUR",
-    "schedule": "fullDay",
-    "work_formats": [
-      "ON_SITE"
-    ],
     "experience": "between1And3",
     "employment": "FULL",
-    "published_at": "2026-09-16T10:53:38.092+03:00",
-    "search_id": "terapevt",
-    "search_name": "Врач-терапевт"
-  },
-  {
-    "id": "123510424",
-    "name": "Врач-терапевт участковый",
-    "url": "https://hh.ru/vacancy/123510424",
-    "area": "Москва",
-    "area_id": "1",
-    "employer": "Городская поликлиника № 22 филиал № 1",
-    "employer_id": "12187130",
-    "rating": 0.0,
-    "reviews_count": 0,
-    "salary_from": 200000,
-    "salary_to": null,
-    "currency": "RUR",
-    "schedule": "fullDay",
-    "work_formats": [
-      "ON_SITE"
+    "published_at": "2026-09-16T13:09:21.151+03:00",
+    "search_ids": [
+      "terapevt"
     ],
-    "experience": "noExperience",
-    "employment": "FULL",
-    "published_at": "2026-09-15T15:59:11.578+03:00",
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -876,29 +940,444 @@
     "experience": "between1And3",
     "employment": "PART",
     "published_at": "2026-09-16T13:27:50.684+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
   {
-    "id": "135989836",
-    "name": "Врач-терапевт на выезды",
-    "url": "https://hh.ru/vacancy/135989836",
-    "area": "Москва",
-    "area_id": "1",
-    "employer": "ИНВИТРО",
-    "employer_id": "6093",
-    "rating": 4.2,
-    "reviews_count": 1049,
-    "salary_from": 150000,
+    "id": "137286196",
+    "name": "Врач-терапевт",
+    "url": "https://hh.ru/vacancy/137286196",
+    "area": "Барнаул",
+    "area_id": "11",
+    "employer": "ГЦМ Диал Мед",
+    "employer_id": "3341370",
+    "rating": 0.0,
+    "reviews_count": 0,
+    "salary_from": null,
+    "salary_to": null,
+    "currency": "",
+    "schedule": "fullDay",
+    "work_formats": [
+      "ON_SITE"
+    ],
+    "experience": "noExperience",
+    "employment": "FULL",
+    "published_at": "2026-09-14T08:12:22.152+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
+    "search_id": "terapevt",
+    "search_name": "Врач-терапевт"
+  },
+  {
+    "id": "137434989",
+    "name": "Врач превентивной медицины / Врач-терапевт (онлайн)",
+    "url": "https://hh.ru/vacancy/137434989",
+    "area": "Санкт-Петербург",
+    "area_id": "2",
+    "employer": "Здоровье Города",
+    "employer_id": "2218433",
+    "rating": 3.3,
+    "reviews_count": 18,
+    "salary_from": null,
+    "salary_to": 60000,
+    "currency": "RUR",
+    "schedule": "remote",
+    "work_formats": [
+      "REMOTE"
+    ],
+    "experience": "between1And3",
+    "employment": "FULL",
+    "published_at": "2026-09-16T13:30:44.284+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
+    "search_id": "terapevt",
+    "search_name": "Врач-терапевт"
+  },
+  {
+    "id": "137293883",
+    "name": "Врач-терапевт",
+    "url": "https://hh.ru/vacancy/137293883",
+    "area": "Красноярск",
+    "area_id": "54",
+    "employer": "Владко",
+    "employer_id": "3201815",
+    "rating": 0.0,
+    "reviews_count": 0,
+    "salary_from": 80000,
     "salary_to": null,
     "currency": "RUR",
     "schedule": "flexible",
     "work_formats": [
+      "ON_SITE"
+    ],
+    "experience": "between3And6",
+    "employment": "PART",
+    "published_at": "2026-09-14T09:57:48.240+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
+    "search_id": "terapevt",
+    "search_name": "Врач-терапевт"
+  },
+  {
+    "id": "137138567",
+    "name": "Врач-терапевт",
+    "url": "https://hh.ru/vacancy/137138567",
+    "area": "Санкт-Петербург",
+    "area_id": "2",
+    "employer": "Городской Медико-Социальный Центр",
+    "employer_id": "5241754",
+    "rating": 1.6,
+    "reviews_count": 2,
+    "salary_from": 80000,
+    "salary_to": null,
+    "currency": "RUR",
+    "schedule": "fullDay",
+    "work_formats": [
       "FIELD_WORK"
+    ],
+    "experience": "noExperience",
+    "employment": "FULL",
+    "published_at": "2026-09-16T09:34:18.431+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
+    "search_id": "terapevt",
+    "search_name": "Врач-терапевт"
+  },
+  {
+    "id": "137118606",
+    "name": "Врач-терапевт приемного отделения",
+    "url": "https://hh.ru/vacancy/137118606",
+    "area": "Москва",
+    "area_id": "1",
+    "employer": "Правительство Москвы",
+    "employer_id": "895945",
+    "rating": 4.1,
+    "reviews_count": 1785,
+    "salary_from": null,
+    "salary_to": null,
+    "currency": "",
+    "schedule": "shift",
+    "work_formats": [
+      "ON_SITE"
+    ],
+    "experience": "noExperience",
+    "employment": "FULL",
+    "published_at": "2026-09-15T09:02:33.643+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
+    "search_id": "terapevt",
+    "search_name": "Врач-терапевт"
+  },
+  {
+    "id": "137353927",
+    "name": "Врач-терапевт приемного отделения",
+    "url": "https://hh.ru/vacancy/137353927",
+    "area": "Москва",
+    "area_id": "1",
+    "employer": "Центральный клинический госпиталь ФТС России",
+    "employer_id": "660274",
+    "rating": 3.5,
+    "reviews_count": 11,
+    "salary_from": 190000,
+    "salary_to": 200000,
+    "currency": "RUR",
+    "schedule": "fullDay",
+    "work_formats": [
+      "ON_SITE"
+    ],
+    "experience": "moreThan6",
+    "employment": "FULL",
+    "published_at": "2026-09-15T09:24:55.549+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
+    "search_id": "terapevt",
+    "search_name": "Врач-терапевт"
+  },
+  {
+    "id": "137127675",
+    "name": "Врач-терапевт",
+    "url": "https://hh.ru/vacancy/137127675",
+    "area": "Москва",
+    "area_id": "1",
+    "employer": "МЦ",
+    "employer_id": "3208395",
+    "rating": 4.2,
+    "reviews_count": 32,
+    "salary_from": 300000,
+    "salary_to": null,
+    "currency": "RUR",
+    "schedule": "fullDay",
+    "work_formats": [
+      "ON_SITE"
+    ],
+    "experience": "moreThan6",
+    "employment": "FULL",
+    "published_at": "2026-09-14T19:22:17.615+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
+    "search_id": "terapevt",
+    "search_name": "Врач-терапевт"
+  },
+  {
+    "id": "132282223",
+    "name": "Врач-терапевт (телемедицина)",
+    "url": "https://hh.ru/vacancy/132282223",
+    "area": "Москва",
+    "area_id": "1",
+    "employer": "Сальвияклиник",
+    "employer_id": "12434988",
+    "rating": 4.8,
+    "reviews_count": 1,
+    "salary_from": 126000,
+    "salary_to": 180000,
+    "currency": "RUR",
+    "schedule": "remote",
+    "work_formats": [
+      "REMOTE"
+    ],
+    "experience": "noExperience",
+    "employment": "PART",
+    "published_at": "2026-09-14T10:39:11.886+03:00",
+    "search_ids": [
+      "terapevt",
+      "telemed"
+    ],
+    "search_names": [
+      "Врач-терапевт",
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ],
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
+    "search_id": "terapevt",
+    "search_name": "Врач-терапевт"
+  },
+  {
+    "id": "137156641",
+    "name": "Врач-терапевт",
+    "url": "https://hh.ru/vacancy/137156641",
+    "area": "Москва",
+    "area_id": "1",
+    "employer": "Форс Клиник",
+    "employer_id": "10251097",
+    "rating": 3.8,
+    "reviews_count": 4,
+    "salary_from": 72000,
+    "salary_to": null,
+    "currency": "RUR",
+    "schedule": "flexible",
+    "work_formats": [
+      "ON_SITE"
     ],
     "experience": "between1And3",
     "employment": "PART",
-    "published_at": "2026-09-15T15:17:52.811+03:00",
+    "published_at": "2026-09-15T13:45:36.167+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
+    "search_id": "terapevt",
+    "search_name": "Врач-терапевт"
+  },
+  {
+    "id": "137301210",
+    "name": "Врач-терапевт участковый, амбулаторный прием",
+    "url": "https://hh.ru/vacancy/137301210",
+    "area": "Москва",
+    "area_id": "1",
+    "employer": "ГБУЗ г.Москвы ГП№170 ДЗМ",
+    "employer_id": "2936053",
+    "rating": 3.8,
+    "reviews_count": 16,
+    "salary_from": 210000,
+    "salary_to": 280000,
+    "currency": "RUR",
+    "schedule": "fullDay",
+    "work_formats": [
+      "ON_SITE"
+    ],
+    "experience": "between1And3",
+    "employment": "FULL",
+    "published_at": "2026-09-14T11:28:58.789+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
+    "search_id": "terapevt",
+    "search_name": "Врач-терапевт"
+  },
+  {
+    "id": "137232211",
+    "name": "Врач-терапевт",
+    "url": "https://hh.ru/vacancy/137232211",
+    "area": "Санкт-Петербург",
+    "area_id": "2",
+    "employer": "Медицинский центр на Комендантском",
+    "employer_id": "5711623",
+    "rating": 4.4,
+    "reviews_count": 6,
+    "salary_from": null,
+    "salary_to": null,
+    "currency": "",
+    "schedule": "flexible",
+    "work_formats": [
+      "ON_SITE"
+    ],
+    "experience": "noExperience",
+    "employment": "PART",
+    "published_at": "2026-09-14T09:15:33.020+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
+    "search_id": "terapevt",
+    "search_name": "Врач-терапевт"
+  },
+  {
+    "id": "137423967",
+    "name": "Врач-терапевт",
+    "url": "https://hh.ru/vacancy/137423967",
+    "area": "Горно-Алтайск",
+    "area_id": "10",
+    "employer": "АЛТАЙ ПЭЛАС",
+    "employer_id": "2582116",
+    "rating": 3.6,
+    "reviews_count": 56,
+    "salary_from": 170000,
+    "salary_to": null,
+    "currency": "RUR",
+    "schedule": "fullDay",
+    "work_formats": [
+      "ON_SITE"
+    ],
+    "experience": "between1And3",
+    "employment": "FULL",
+    "published_at": "2026-09-16T10:53:38.092+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -922,21 +1401,68 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-16T12:25:07.655+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
   {
-    "id": "137351479",
-    "name": "Врач - терапевт (выездная служба на дом)",
-    "url": "https://hh.ru/vacancy/137351479",
-    "area": "Челябинск",
-    "area_id": "104",
-    "employer": "АВС-ПРОФМЕДИЦИНА",
-    "employer_id": "10380637",
+    "id": "123510424",
+    "name": "Врач-терапевт участковый",
+    "url": "https://hh.ru/vacancy/123510424",
+    "area": "Москва",
+    "area_id": "1",
+    "employer": "Городская поликлиника № 22 филиал № 1",
+    "employer_id": "12187130",
+    "rating": 0.0,
+    "reviews_count": 0,
+    "salary_from": 200000,
+    "salary_to": null,
+    "currency": "RUR",
+    "schedule": "fullDay",
+    "work_formats": [
+      "ON_SITE"
+    ],
+    "experience": "noExperience",
+    "employment": "FULL",
+    "published_at": "2026-09-15T15:59:11.578+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
+    "search_id": "terapevt",
+    "search_name": "Врач-терапевт"
+  },
+  {
+    "id": "135989836",
+    "name": "Врач-терапевт на выезды",
+    "url": "https://hh.ru/vacancy/135989836",
+    "area": "Москва",
+    "area_id": "1",
+    "employer": "ИНВИТРО",
+    "employer_id": "6093",
     "rating": 4.2,
-    "reviews_count": 16,
+    "reviews_count": 1049,
     "salary_from": 150000,
-    "salary_to": 300000,
+    "salary_to": null,
     "currency": "RUR",
     "schedule": "flexible",
     "work_formats": [
@@ -944,7 +1470,19 @@
     ],
     "experience": "between1And3",
     "employment": "PART",
-    "published_at": "2026-09-15T08:41:02.312+03:00",
+    "published_at": "2026-09-15T15:17:52.811+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -968,6 +1506,53 @@
     "experience": "between1And3",
     "employment": "PART",
     "published_at": "2026-09-15T08:41:29.353+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
+    "search_id": "terapevt",
+    "search_name": "Врач-терапевт"
+  },
+  {
+    "id": "137351479",
+    "name": "Врач - терапевт (выездная служба на дом)",
+    "url": "https://hh.ru/vacancy/137351479",
+    "area": "Челябинск",
+    "area_id": "104",
+    "employer": "АВС-ПРОФМЕДИЦИНА",
+    "employer_id": "10380637",
+    "rating": 4.2,
+    "reviews_count": 16,
+    "salary_from": 150000,
+    "salary_to": 300000,
+    "currency": "RUR",
+    "schedule": "flexible",
+    "work_formats": [
+      "FIELD_WORK"
+    ],
+    "experience": "between1And3",
+    "employment": "PART",
+    "published_at": "2026-09-15T08:41:02.312+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -991,6 +1576,18 @@
     "experience": "between1And3",
     "employment": "FULL",
     "published_at": "2026-09-14T18:11:37.678+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -1014,6 +1611,18 @@
     "experience": "between3And6",
     "employment": "PART",
     "published_at": "2026-09-16T09:55:08.806+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -1037,6 +1646,18 @@
     "experience": "between1And3",
     "employment": "PART",
     "published_at": "2026-09-15T08:42:11.859+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -1060,6 +1681,18 @@
     "experience": "between1And3",
     "employment": "FULL",
     "published_at": "2026-09-16T10:22:02.930+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -1081,6 +1714,18 @@
     "experience": "between1And3",
     "employment": "FULL",
     "published_at": "2026-09-16T10:01:08.233+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -1105,6 +1750,18 @@
     "experience": "between1And3",
     "employment": "FULL",
     "published_at": "2026-09-14T13:00:41.547+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
   },
@@ -1128,102 +1785,20 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-15T09:11:52.404+03:00",
+    "search_ids": [
+      "terapevt"
+    ],
+    "search_names": [
+      "Врач-терапевт"
+    ],
+    "notify": [
+      [
+        [],
+        "Врач-терапевт"
+      ]
+    ],
     "search_id": "terapevt",
     "search_name": "Врач-терапевт"
-  },
-  {
-    "id": "137431013",
-    "name": "Врач-терапевт",
-    "url": "https://hh.ru/vacancy/137431013",
-    "area": "Уфа",
-    "area_id": "99",
-    "employer": "ГБУЗ РБ Красноусольская ЦРБ",
-    "employer_id": "12719543",
-    "rating": 1.5,
-    "reviews_count": 1,
-    "salary_from": 80000,
-    "salary_to": 1000000,
-    "currency": "RUR",
-    "schedule": "fullDay",
-    "work_formats": [
-      "ON_SITE"
-    ],
-    "experience": "noExperience",
-    "employment": "FULL",
-    "published_at": "2026-09-16T12:25:07.655+03:00",
-    "search_id": "terapevt",
-    "search_name": "Врач-терапевт"
-  },
-  {
-    "id": "136974873",
-    "name": "Врач-терапевт (телемедицина)",
-    "url": "https://hh.ru/vacancy/136974873",
-    "area": "Казань",
-    "area_id": "88",
-    "employer": "ДжиКлиник",
-    "employer_id": "2730873",
-    "rating": 3.5,
-    "reviews_count": 2,
-    "salary_from": 90500,
-    "salary_to": 129400,
-    "currency": "RUR",
-    "schedule": "remote",
-    "work_formats": [
-      "ON_SITE",
-      "REMOTE",
-      "HYBRID"
-    ],
-    "experience": "noExperience",
-    "employment": "PART",
-    "published_at": "2026-09-16T08:02:51.181+03:00",
-    "search_id": "telemed",
-    "search_name": "Телемедицина"
-  },
-  {
-    "id": "137037284",
-    "name": "Врач - терапевт (Телемедицина)",
-    "url": "https://hh.ru/vacancy/137037284",
-    "area": "Москва",
-    "area_id": "1",
-    "employer": "МЕДОРИА",
-    "employer_id": "5871306",
-    "rating": 4.0,
-    "reviews_count": 27,
-    "salary_from": 146800,
-    "salary_to": 180000,
-    "currency": "RUR",
-    "schedule": "remote",
-    "work_formats": [
-      "REMOTE"
-    ],
-    "experience": "between1And3",
-    "employment": "PART",
-    "published_at": "2026-09-16T09:11:32.788+03:00",
-    "search_id": "telemed",
-    "search_name": "Телемедицина"
-  },
-  {
-    "id": "136967859",
-    "name": "Врач Терапевт на дежурную линию (телемедицина)",
-    "url": "https://hh.ru/vacancy/136967859",
-    "area": "Москва",
-    "area_id": "1",
-    "employer": "Медлайнселект",
-    "employer_id": "10895256",
-    "rating": 4.3,
-    "reviews_count": 12,
-    "salary_from": 155000,
-    "salary_to": 201100,
-    "currency": "RUR",
-    "schedule": "remote",
-    "work_formats": [
-      "REMOTE"
-    ],
-    "experience": "between1And3",
-    "employment": "PART",
-    "published_at": "2026-09-15T18:43:02.073+03:00",
-    "search_id": "telemed",
-    "search_name": "Телемедицина"
   },
   {
     "id": "137362615",
@@ -1247,52 +1822,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-15T11:27:06.564+03:00",
-    "search_id": "telemed",
-    "search_name": "Телемедицина"
-  },
-  {
-    "id": "137296964",
-    "name": "Врач-терапевт (Телемедицина)",
-    "url": "https://hh.ru/vacancy/137296964",
-    "area": "Москва",
-    "area_id": "1",
-    "employer": "КРОССХАБ",
-    "employer_id": "1416237",
-    "rating": 4.4,
-    "reviews_count": 10,
-    "salary_from": null,
-    "salary_to": null,
-    "currency": "",
-    "schedule": "remote",
-    "work_formats": [
-      "REMOTE"
+    "search_ids": [
+      "telemed"
     ],
-    "experience": "between3And6",
-    "employment": "FULL",
-    "published_at": "2026-09-14T10:38:47.825+03:00",
-    "search_id": "telemed",
-    "search_name": "Телемедицина"
-  },
-  {
-    "id": "132282223",
-    "name": "Врач-терапевт (телемедицина)",
-    "url": "https://hh.ru/vacancy/132282223",
-    "area": "Москва",
-    "area_id": "1",
-    "employer": "Сальвияклиник",
-    "employer_id": "12434988",
-    "rating": 4.8,
-    "reviews_count": 1,
-    "salary_from": 126000,
-    "salary_to": 180000,
-    "currency": "RUR",
-    "schedule": "remote",
-    "work_formats": [
-      "REMOTE"
+    "search_names": [
+      "Телемедицина"
     ],
-    "experience": "noExperience",
-    "employment": "PART",
-    "published_at": "2026-09-14T10:39:11.886+03:00",
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1317,6 +1858,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-14T15:03:23.556+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1340,6 +1893,18 @@
     "experience": "between1And3",
     "employment": "FULL",
     "published_at": "2026-09-14T13:13:10.420+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1363,6 +1928,18 @@
     "experience": "between1And3",
     "employment": "FULL",
     "published_at": "2026-09-15T16:25:54.462+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1386,6 +1963,18 @@
     "experience": "noExperience",
     "employment": "PART",
     "published_at": "2026-09-15T09:34:36.710+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1409,6 +1998,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-14T11:15:15.268+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1432,6 +2033,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-15T16:35:11.826+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1458,6 +2071,18 @@
     "experience": "noExperience",
     "employment": "PART",
     "published_at": "2026-09-15T16:42:00.957+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1481,6 +2106,18 @@
     "experience": "between1And3",
     "employment": "PART",
     "published_at": "2026-09-15T17:02:33.641+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1507,6 +2144,18 @@
     "experience": "noExperience",
     "employment": "PART",
     "published_at": "2026-09-15T16:40:21.766+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1530,6 +2179,18 @@
     "experience": "between1And3",
     "employment": "FULL",
     "published_at": "2026-09-16T09:13:05.480+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1556,6 +2217,18 @@
     "experience": "noExperience",
     "employment": "PART",
     "published_at": "2026-09-13T18:50:51.545+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1582,6 +2255,18 @@
     "experience": "noExperience",
     "employment": "PART",
     "published_at": "2026-09-13T18:44:20.603+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1605,6 +2290,18 @@
     "experience": "noExperience",
     "employment": "PART",
     "published_at": "2026-09-15T16:46:05.902+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1628,6 +2325,18 @@
     "experience": "between1And3",
     "employment": "PART",
     "published_at": "2026-09-14T18:00:15.881+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1654,6 +2363,18 @@
     "experience": "noExperience",
     "employment": "PART",
     "published_at": "2026-09-15T10:19:48.902+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1677,6 +2398,18 @@
     "experience": "between1And3",
     "employment": "PART",
     "published_at": "2026-09-15T11:07:53.538+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1700,6 +2433,18 @@
     "experience": "noExperience",
     "employment": "PART",
     "published_at": "2026-09-15T13:35:02.565+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1723,6 +2468,18 @@
     "experience": "noExperience",
     "employment": "PART",
     "published_at": "2026-09-13T18:48:26.538+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1746,6 +2503,18 @@
     "experience": "between1And3",
     "employment": "PART",
     "published_at": "2026-09-16T09:22:33.013+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1769,6 +2538,18 @@
     "experience": "noExperience",
     "employment": "PART",
     "published_at": "2026-09-15T10:42:53.915+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1792,6 +2573,18 @@
     "experience": "noExperience",
     "employment": "PART",
     "published_at": "2026-09-15T09:26:32.012+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1815,6 +2608,18 @@
     "experience": "noExperience",
     "employment": "PART",
     "published_at": "2026-09-15T13:43:19.610+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1838,6 +2643,18 @@
     "experience": "between1And3",
     "employment": "PART",
     "published_at": "2026-09-15T13:32:45.978+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1864,6 +2681,18 @@
     "experience": "noExperience",
     "employment": "PART",
     "published_at": "2026-09-15T16:44:19.358+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1887,6 +2716,18 @@
     "experience": "noExperience",
     "employment": "PART",
     "published_at": "2026-09-16T10:37:31.582+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1910,6 +2751,18 @@
     "experience": "noExperience",
     "employment": "PART",
     "published_at": "2026-09-15T13:30:54.301+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1933,6 +2786,18 @@
     "experience": "noExperience",
     "employment": "PART",
     "published_at": "2026-09-15T17:07:22.592+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1956,6 +2821,18 @@
     "experience": "between1And3",
     "employment": "PART",
     "published_at": "2026-09-16T11:17:54.148+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -1979,6 +2856,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-14T10:50:19.580+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -2002,6 +2891,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-14T14:31:36.571+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -2025,6 +2926,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-14T12:43:18.364+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -2048,6 +2961,18 @@
     "experience": "between1And3",
     "employment": "FULL",
     "published_at": "2026-09-16T10:17:11.371+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -2071,6 +2996,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-16T04:15:26.959+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -2094,6 +3031,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-16T12:08:13.774+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -2117,6 +3066,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-14T14:34:44.259+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -2140,6 +3101,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-14T14:08:10.427+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -2163,6 +3136,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-14T10:26:31.816+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -2186,6 +3171,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-14T10:07:43.548+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -2209,6 +3206,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-16T12:06:20.939+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -2232,6 +3241,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-16T10:30:36.545+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -2255,6 +3276,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-14T10:25:13.314+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -2278,6 +3311,18 @@
     "experience": "between1And3",
     "employment": "FULL",
     "published_at": "2026-09-16T09:33:49.698+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -2301,6 +3346,18 @@
     "experience": "noExperience",
     "employment": "FULL",
     "published_at": "2026-09-14T10:28:52.939+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
   },
@@ -2324,54 +3381,20 @@
     "experience": "between1And3",
     "employment": "FULL",
     "published_at": "2026-09-16T10:46:21.266+03:00",
+    "search_ids": [
+      "telemed"
+    ],
+    "search_names": [
+      "Телемедицина"
+    ],
+    "notify": [
+      [
+        [],
+        "Телемедицина"
+      ]
+    ],
     "search_id": "telemed",
     "search_name": "Телемедицина"
-  },
-  {
-    "id": "136967859",
-    "name": "Врач Терапевт на дежурную линию (телемедицина)",
-    "url": "https://hh.ru/vacancy/136967859",
-    "area": "Москва",
-    "area_id": "1",
-    "employer": "Медлайнселект",
-    "employer_id": "10895256",
-    "rating": 4.3,
-    "reviews_count": 12,
-    "salary_from": 155000,
-    "salary_to": 201100,
-    "currency": "RUR",
-    "schedule": "remote",
-    "work_formats": [
-      "REMOTE"
-    ],
-    "experience": "between1And3",
-    "employment": "PART",
-    "published_at": "2026-09-15T18:43:02.073+03:00",
-    "search_id": "u_Pavel_huntflow_1",
-    "search_name": "👤 врач телемедицина терапевт"
-  },
-  {
-    "id": "137037284",
-    "name": "Врач - терапевт (Телемедицина)",
-    "url": "https://hh.ru/vacancy/137037284",
-    "area": "Москва",
-    "area_id": "1",
-    "employer": "МЕДОРИА",
-    "employer_id": "5871306",
-    "rating": 4.0,
-    "reviews_count": 27,
-    "salary_from": 146800,
-    "salary_to": 180000,
-    "currency": "RUR",
-    "schedule": "remote",
-    "work_formats": [
-      "REMOTE"
-    ],
-    "experience": "between1And3",
-    "employment": "PART",
-    "published_at": "2026-09-16T09:11:32.788+03:00",
-    "search_id": "u_Pavel_huntflow_1",
-    "search_name": "👤 врач телемедицина терапевт"
   },
   {
     "id": "137219374",
@@ -2393,6 +3416,20 @@
     "experience": "between1And3",
     "employment": "PART",
     "published_at": "2026-09-10T17:33:03.379+03:00",
+    "search_ids": [
+      "u_Pavel_huntflow_1"
+    ],
+    "search_names": [
+      "👤 врач телемедицина терапевт"
+    ],
+    "notify": [
+      [
+        [
+          "Pavel_huntflow"
+        ],
+        "👤 врач телемедицина терапевт"
+      ]
+    ],
     "search_id": "u_Pavel_huntflow_1",
     "search_name": "👤 врач телемедицина терапевт"
   }
