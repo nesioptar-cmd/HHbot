@@ -20,6 +20,9 @@ export const EXP_RU = {
   noExperience: "без опыта", between1And3: "1–3 года",
   between3And6: "3–6 лет", moreThan6: "6+ лет",
 };
+export const EMPLOYMENT_RU = {
+  full: "полная", part: "частичная", project: "проектная",
+};
 
 export function blankDraft(text = "") {
   return {
@@ -38,6 +41,7 @@ export function describe(s) {
   bits.push("график: " + (sch.length ? sch.map((x) => schRu[x] || x).join(",") : "любой"));
   if (s.salary_from) bits.push(`от ${Number(s.salary_from).toLocaleString("ru-RU")} ₽`);
   if (s.min_employer_rating) bits.push(`рейтинг ≥ ${s.min_employer_rating}`);
+  if (s.employment?.length) bits.push("занятость: " + s.employment.map((e) => EMPLOYMENT_RU[e] || e).join(","));
   if (s.experience?.length) bits.push("опыт: " + s.experience.map((e) => EXP_RU[e] || e).join(","));
   if (!s.enabled) bits.push("⏸ выкл");
   return bits.join(" · ");
@@ -60,6 +64,10 @@ const SCHED_ALIASES = {
   "shift": ["shift"], "сменный": ["shift"], "vahta": ["flyInFlyOut"],
   "вахта": ["flyInFlyOut"], "any": ["any"], "любой": ["any"],
 };
+const EMP_ALIASES = {
+  "full": ["full"], "полная": ["full"], "part": ["part"], "частичная": ["part"],
+  "project": ["project"], "проектная": ["project"], "any": ["any"], "любая": ["any"],
+};
 
 // "текст | москва | удалённо | 4.5 | 150000 | 1-3 | название" -> подборка
 export function parseSpec(spec) {
@@ -72,6 +80,8 @@ export function parseSpec(spec) {
     if (AREA_ALIASES[low]) { s.area = AREA_ALIASES[low]; continue; }
     const sch = SCHED_ALIASES[low];
     if (sch) { s.schedule = sch[0] === "any" ? [] : sch; continue; }
+    const empA = EMP_ALIASES[low];
+    if (empA) { s.employment = empA[0] === "any" ? [] : empA; continue; }
     if (FIELD_ALIASES[low]) { s.search_field = FIELD_ALIASES[low]; continue; }
     if (low in EXP_ALIASES) {
       s.experience = EXP_ALIASES[low] ? [EXP_ALIASES[low]] : [];
@@ -139,6 +149,7 @@ export function wizardMenu(draft) {
   const f = draft.search_field || "everywhere";
   const a = String((draft.area || [113])[0]);
   const sch = (draft.schedule || [])[0] || "any";
+  const emp = (draft.employment || [])[0] || "any";
   const r = draft.min_employer_rating >= 4.5 ? "4.5" : draft.min_employer_rating >= 4 ? "4.0" : "0";
   const sal = draft.salary_from || 0;
   const salBtn = (v, l) => btn(((sal === v) ? "✅ " : "") + l, `wiz:salary:${v}`);
@@ -151,6 +162,8 @@ export function wizardMenu(draft) {
         btn(mark(a, v) + { 1: "Москва", 2: "СПб", 113: "Россия" }[v], `wiz:area:${v}`)),
       [["any", "Любой"], ["remote", "Удалённо"], ["fullDay", "Полный день"]].map(([v, l]) =>
         btn(mark(sch, v) + l, `wiz:schedule:${v}`)),
+      [["any", "Любая"], ["full", "Полная"], ["part", "Частичная"], ["project", "Проектная"]].map(([v, l]) =>
+        btn(mark(emp, v) + l, `wiz:employment:${v}`)),
       [["0", "Любой"], ["4.0", "4.0+"], ["4.5", "4.5+"]].map(([v, l]) =>
         btn(mark(r, v) + l, `wiz:rating:${v}`)),
       [salBtn(0, "Любая"), salBtn(50000, "50k"), salBtn(100000, "100k"), salBtn(150000, "150k")],
@@ -181,7 +194,8 @@ export function listMenu(searches) {
 
 export const HELP =
   "🤖 Я слежу за hh.ru каждые 3 часа и присылаю новые вакансии.\n\n" +
-  "• <b>Новая подборка</b> — мастер с кнопками: ключевые слова → регион → график → зарплата → рейтинг.\n" +
+  "• <b>Новая подборка</b> — мастер с кнопками: ключевые слова → регион → график → " +
+  "занятость → зарплата → рейтинг.\n" +
   "• <b>Мои подборки</b> — вкл/выкл, изменить, удалить.\n" +
   "• <b>Что нового</b> — последние вакансии по подпискам прямо сейчас.\n" +
   "• <b>Дашборд</b> — все вакансии с фильтрами.\n\n" +
@@ -319,6 +333,7 @@ export async function onCallback(ctx, data, msgId, state) {
     if (key === "field" && ["everywhere", "name", "description"].includes(val)) d.search_field = val;
     else if (key === "area" && ["1", "2", "113"].includes(val)) d.area = [parseInt(val, 10)];
     else if (key === "schedule" && ["any", "remote", "fullDay"].includes(val)) d.schedule = val === "any" ? [] : [val];
+    else if (key === "employment" && ["any", "full", "part", "project"].includes(val)) d.employment = val === "any" ? [] : [val];
     else if (key === "rating" && ["0", "4.0", "4.5"].includes(val)) d.min_employer_rating = parseFloat(val);
     else if (key === "salary" && /^\d+$/.test(val || "")) d.salary_from = parseInt(val, 10);
     else if (key === "salarycustom") {

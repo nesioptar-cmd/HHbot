@@ -76,6 +76,10 @@ assert(subs["777"].searches[0].schedule[0] === "remote", "график сохр�
 await msg("/add телемедицина | питер | 4.5");
 assert(lastText().includes("Добавлена"), "/add с пайпами работает");
 
+const { parseSpec } = await import("../netlify/lib/bot.mjs");
+const ps = parseSpec("врач | частичная | москва");
+assert(ps.employment[0] === "part" && ps.area[0] === 1 && ps.text === "врач", "parseSpec: занятость");
+
 // planned fetch: живая проверка hh.ru
 const fetchH = (await import("../netlify/functions/fetch-vacancies.mjs")).handler;
 const r = JSON.parse((await fetchH()).body);

@@ -213,6 +213,10 @@ function fmtSearchLine(s) {
   if (s.text) parts.push(`«${s.text}» (${SEARCH_FIELD_RU[s.search_field] || s.search_field || 'везде'})`);
   if (s.area && s.area.length) parts.push(`регионы: ${s.area.join(', ')}`);
   if (s.schedule && s.schedule.length) parts.push(`график: ${s.schedule.join(', ')}`);
+  if (s.employment && s.employment.length) {
+    const er = { full: 'полная', part: 'частичная', project: 'проектная' };
+    parts.push(`занятость: ${s.employment.map((e) => er[e] || e).join(', ')}`);
+  }
   if (s.experience && s.experience.length) parts.push(`опыт: ${s.experience.join(', ')}`);
   if (s.salary_from) parts.push(`от ${Number(s.salary_from).toLocaleString('ru-RU')} ₽`);
   if (s.min_employer_rating) parts.push(`рейтинг ≥ ${s.min_employer_rating}`);
@@ -264,7 +268,7 @@ function buildCommand() {
     const v = document.getElementById(id).value.trim();
     if (v) parts.push(v);
   };
-  push('b-area'); push('b-sched'); push('b-rating'); push('b-salary');
+  push('b-area'); push('b-sched'); push('b-emp'); push('b-rating'); push('b-salary');
   push('b-exp'); push('b-field');
   const spec = parts.filter(Boolean).join(' | ');
   const cmd = num ? `/replace ${num} | ${spec}` : `/add ${spec}`;
@@ -368,7 +372,7 @@ function init() {
   ['f-q', 'f-search', 'f-sched', 'f-sort', 'f-rate'].forEach((id) => {
     document.getElementById(id).addEventListener('input', renderAll);
   });
-  ['b-num', 'b-text', 'b-field', 'b-area', 'b-sched', 'b-exp', 'b-salary', 'b-rating'].forEach((id) => {
+  ['b-num', 'b-text', 'b-field', 'b-area', 'b-sched', 'b-emp', 'b-exp', 'b-salary', 'b-rating'].forEach((id) => {
     document.getElementById(id).addEventListener('input', buildCommand);
   });
   refresh(false);
