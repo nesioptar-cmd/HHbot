@@ -6,6 +6,8 @@
 # 113 — вся Россия. Полный список: https://api.hh.ru/areas
 # schedule: fullDay (полный день), shift (сменный), flexible (гибкий),
 #   remote (удалённо), flyInFlyOut (вахта). Пусто = любой.
+# enabled: false — подборка не ищется и не рассылается (включается обратно
+#   в true; личные выключаются командой /off прямо из бота).
 # search_field: everywhere (везде), name (в названии),
 #   company_name (в компании), description (в описании).
 
@@ -25,6 +27,7 @@ searches:
     exclude_keywords: []
     max_results: 50
     notify_users: []
+    enabled: true
 
   - id: telemed
     name: "Телемедицина"
@@ -41,3 +44,4 @@ searches:
     exclude_keywords: []
     max_results: 50
     notify_users: []
+    enabled: true

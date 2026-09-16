@@ -132,6 +132,8 @@ a:hover { text-decoration: underline; }
   font-size: var(--text-xs); font-weight: 500;
 }
 .badge svg { width: 14px; height: 14px; }
+.config-badges .badge { cursor: pointer; user-select: none; }
+.badge-off { opacity: .45; filter: grayscale(.6); }
 .badge-muted { background: var(--color-surface-offset); color: var(--color-text-muted); border: 1px solid var(--color-border); }
 .badge-primary { background: var(--color-primary-light); color: var(--color-primary); border: 1px solid transparent; }
 .badge-blue { background: var(--color-blue-light); color: var(--color-blue); }

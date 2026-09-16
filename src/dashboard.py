@@ -42,6 +42,7 @@ def build_dashboard(vacancies, searches, docs_dir, notify_users_count=0):
             "min_employer_rating": s.get("min_employer_rating") or 0,
             "owner": s.get("owner") or "",
             "personal": bool(s.get("personal")),
+            "enabled": bool(s.get("enabled", True)),
         })
     with open(os.path.join(docs_dir, "config.json"), "w", encoding="utf-8") as f:
         json.dump({

@@ -112,6 +112,10 @@ def main():
     for s in searches:
         sid = s.get("id") or s.get("name")
         sname = s.get("name") or sid
+        s.setdefault("enabled", True)
+        if not s.get("enabled", True):
+            print(f"[main] Подборка '{sname}' выключена — пропуск.")
+            continue
         limit = args.limit_per_search or int(s.get("max_results") or 50)
         print(f"[main] Поиск '{sname}' …")
         try:

@@ -68,6 +68,7 @@ HELP = (
     "/show <i>[номер]</i> — подробно об одной\n"
     "/del <i>номер</i> — удалить\n"
     "/text · /field · /area · /schedule · /exp · /salary · /rating — правки\n"
+    "/off <i>[номер]</i> — выключить (не ищет и не шлёт) · /on <i>[номер]</i> — включить\n"
     "(номер из /list можно опускать)\n"
     "⏱ Всё применяется при ближайшем обновлении (каждые ~5 мин)."
 )
@@ -152,7 +153,8 @@ def _reply(token, chat_id, text, kb=False):
 
 
 def _describe(s, i):
-    bits = [f"<b>{i}. {s.get('text', '')}</b>",
+    bits = [f"<b>{i}. {s.get('text', '')}</b>"
+            + ("" if s.get("enabled", True) else " ⏸<i>выкл</i>"),
             f"ищем {FIELD_RU.get(s.get('search_field'), s.get('search_field') or 'везде')}"]
     if s.get("area"):
         bits.append("регионы: " + ",".join(map(str, s["area"])))
@@ -200,6 +202,7 @@ def new_personal_search(text):
         "min_employer_rating": 0.0,
         "exclude_keywords": [],
         "max_results": 30,
+        "enabled": True,
     }
 
 
@@ -401,6 +404,17 @@ def handle_command(cmd, arg, username, personal):
         for s in targets:
             s["salary_from"] = sal
         return (f"✅ Зарплата от {sal:,} ₽ ({len(targets)} шт.)".replace(",", " "), False)
+    if cmd in ("off", "on"):
+        err = _need(mine)
+        if err:
+            return (err, False)
+        targets, _, pick_err = _pick(mine, arg)
+        if pick_err:
+            return (pick_err, False)
+        for s in targets:
+            s["enabled"] = (cmd == "on")
+        state = "включены" if cmd == "on" else "выключены (не ищутся, не рассылаются)"
+        return (f"✅ {len(targets)} шт. {state}.", False)
     if cmd == "del":
         try:
             n = int(arg)

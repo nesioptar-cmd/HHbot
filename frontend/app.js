@@ -21,6 +21,7 @@ const SEARCH_FIELD_RU = {
 
 const SEEN_KEY = 'hh_seen_v1';
 const THEME_KEY = 'hh_theme';
+const HIDDEN_KEY = 'hh_hidden_v1';
 
 // ── State ──
 let searches = [];
@@ -29,6 +30,18 @@ let generatedAt = '';
 let notifyCount = 0;
 let botUsername = 'hhedz_bot';
 let seen = new Set();
+let hidden = new Set();
+
+function loadHidden() {
+  try {
+    hidden = new Set(JSON.parse(localStorage.getItem(HIDDEN_KEY) || '[]'));
+  } catch (e) { hidden = new Set(); }
+}
+function saveHidden() {
+  try {
+    localStorage.setItem(HIDDEN_KEY, JSON.stringify([...hidden]));
+  } catch (e) { /* ignore */ }
+}
 
 // ── Helpers ──
 function esc(s) {
@@ -108,9 +121,12 @@ function renderBadges() {
   });
   el.innerHTML = searches.map((s) => {
     const n = counts[s.id] || 0;
-    return `<span class="badge badge-primary">`
+    const off = !s.enabled;
+    const hid = hidden.has(s.id);
+    return `<span class="badge badge-primary${(off || hid) ? ' badge-off' : ''}" `
+      + `data-sid="${esc(s.id)}" title="${off ? 'Выключена (бот не ищет). Вкл: /on' : 'Клик — скрыть/показать'}">`
       + `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 21l-4.35-4.35M11 17a6 6 0 1 1 0-12 6 6 0 0 1 0 12z"/></svg>`
-      + `${esc(s.name)} · ${n}</span>`;
+      + `${off ? '⏸ ' : ''}${esc(s.name)} · ${n}</span>`;
   }).join('');
 }
 
@@ -122,8 +138,8 @@ function renderSearchOptions() {
 }
 
 function renderStats(list) {
-  document.getElementById('stat-total').textContent = vacancies.length;
-  document.getElementById('stat-new').textContent = vacancies.filter((v) => !seen.has(vacKey(v))).length;
+  document.getElementById('stat-total').textContent = list.length;
+  document.getElementById('stat-new').textContent = list.filter((v) => !seen.has(vacKey(v))).length;
   document.getElementById('stat-updated').textContent = generatedAt || '—';
 }
 
@@ -171,7 +187,8 @@ function renderAll() {
   const f = currentFilters();
   let list = vacancies.filter((v) => {
     const sids = v.search_ids || [v.search_id];
-    return (!f.search || sids.includes(f.search))
+    return sids.some((sid) => !hidden.has(sid))
+      && (!f.search || sids.includes(f.search))
       && (!f.sched || v.schedule === f.sched)
       && ((v.rating || 0) >= f.minRate)
       && (!f.q || `${v.name} ${v.employer}`.toLowerCase().includes(f.q));
@@ -208,6 +225,7 @@ function openSettings() {
   box.innerHTML = searches.length
     ? searches.map((s) => `<p style="margin-bottom:.6rem"><b>${esc(s.name)}</b>`
       + (s.owner ? ` <span class="form-hint">@${esc(s.owner)}</span>` : '')
+      + (s.enabled === false ? ` <span class="form-hint">⏸ выключена</span>` : '')
       + `<br><span class="form-hint">${esc(fmtSearchLine(s))}</span></p>`).join('')
     : '<p class="form-hint">Подборки не заданы.</p>';
   document.getElementById('settings-telegram').innerHTML =
@@ -272,6 +290,18 @@ async function refresh(showToast) {
 function init() {
   initTheme();
   loadSeen();
+  loadHidden();
+  document.getElementById('config-badges').addEventListener('click', (e) => {
+    const badge = e.target.closest('[data-sid]');
+    if (!badge) return;
+    const sid = badge.getAttribute('data-sid');
+    const s = searches.find((x) => String(x.id) === sid);
+    if (!s || !s.enabled) return;  // выключенные ботом — только для вида
+    if (hidden.has(sid)) hidden.delete(sid);
+    else hidden.add(sid);
+    saveHidden();
+    renderAll();
+  });
   document.getElementById('btn-theme').onclick = () => {
     applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
   };
