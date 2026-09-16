@@ -1,217 +1,85 @@
-# HHbot — вакансии hh.ru → Telegram + дашборд на бесплатном хостинге (GitHub)
+# HHbot v2 — вакансии hh.ru → Telegram-бот с меню + дашборд (Netlify)
 
-Бот каждые 30 минут проверяет **hh.ru** по вашим фильтрам, присылает **новые вакансии в Telegram**
-конкретным пользователям и обновляет **дашборд** на GitHub Pages.
-
-Всё бесплатно: GitHub Actions (~2000 мин/мес) + GitHub Pages + Telegram Bot API + публичный поиск hh.ru.
-Свой сервер не нужен.
-
-## Как это устроено
+Telegram-бот с **нативным меню кнопками**: мастер подборки
+(ключевые слова → где искать → регион → график → зарплата → рейтинг),
+подписка на обновления **каждые 3 часа**, дашборд с фильтрами.
+Хостинг полностью на Netlify (сайт + функции + планировщик + хранилище),
+GitHub — только код. Всё бесплатно.
 
 ```
-GitHub Actions (cron */30) → src/main.py → hh.ru → фильтры →
-    → Telegram Bot API (новым вакансиям) + docs/index.html (дашборд) → GitHub Pages
+Telegram ──webhook──▶ Netlify Function tg-webhook ──▶ Blobs (подписки)
+                              ▲ мгновенные ответы (< 2 сек)
+Netlify Scheduled fetch (0 */3 * * *) ──▶ hh.ru ──▶ Telegram-дайджесты + Blobs-кэш
+                                                              ▲
+Дашборд (public/) ──▶ Function api-data ──▶ Blobs ──▶┘
 ```
 
-**Важный нюанс про официальный API hh.ru:** анонимные запросы к `api.hh.ru/vacancies`
-через несколько обращений начинают отдавать `403` (требует капчу/токен), а рейтинга
-работодателя там вообще нет. Поэтому по умолчанию бот ходит в тот же публичный endpoint,
-что и сам сайт hh.ru (`hh.ru/shards/vacancy/search`): он без капчи и отдаёт
-`company.employerReviews.totalRating` — именно по нему работает фильтр «рейтинг работодателя».
-Опционально можно подключить официальный API через `HH_ACCESS_TOKEN` (приложение на
-https://dev.hh.ru/admin), код уже поддерживает оба пути.
+## Запуск (15 минут)
 
-**Важный нюанс про Telegram:** Bot API **не умеет слать по @username**, только по `chat_id`.
-Поэтому каждый получатель один раз жмёт `/start` — бот сам регистрирует его
-(автоматически дописывает в `config/users.yaml` при ближайшем прогоне) и выдаёт
-справку по командам. Запасной путь вручную — `src/resolve_users.py` (подробности ниже).
+### 1. Netlify: создать сайт
+1. https://app.netlify.com → Add new site → Import an existing project →
+   GitHub → `nesioptar-cmd/HHbot`, branch `main`.
+2. Build settings подхватятся из `netlify.toml` сами
+   (publish `public`, functions `netlify/functions`). Deploy.
 
-## Управление из Telegram (без правок кода)
+### 2. Переменные окружения (Site settings → Environment variables)
+- `TELEGRAM_BOT_TOKEN` — токен @hhedz_bot (тот же)
+- `BOT_USERNAME` — `hhedz_bot` (для ссылок в дашборде)
+- `DASHBOARD_URL` — URL сайта, напр. `https://hhbot.netlify.app`
+- `HH_ACCESS_TOKEN` — **рекомендуется**: токен приложения с https://dev.hh.ru/admin
+  (с ним официальный API hh.ru работает с любых IP без капчи; без него — публичный
+  поиск сайта, может упираться в регион)
+- `HH_USER_AGENT` — напр. `hh-vacancy-dashboard/1.0 (you@domain.ru)`
 
-У бота есть кнопка **«📊 Дашборд»** (открывает Pages-дашборд внутри Telegram).
+Blobs-хранилище заводится само, ничего настраивать не надо.
 
-**Мастер настройки:** `/setup врач терапевт` — бот пришлёт меню с кнопками
-(где искать / регион / график / рейтинг + «Готово»). Жмёте нужное —
-при ближайшем обновлении (цикл — каждые ~5 мин) меню перерисуется с галочками,
-«Готово» сохраняет подборку. Зарплату и опыт после этого — командами
-`/salary 150000`, `/exp 1-3` (применятся к готовой подборке).
-
-**Команды для точной настройки** (номер из `/list` можно опускать):
-
-| Команда | Пример | Что делает |
-|---|---|---|
-| `/add текст` | `/add врач терапевт` | личная подборка (поиск везде, вся Россия) |
-| `/list` | | мои подборки с номерами |
-| `/show [номер]` | `/show 1` | подробно об одной + подсказки правок |
-| `/del номер` | `/del 1` | удалить свою подборку |
-| `/text [номер] …` | `/text 1 телемедицина` | сменить запрос (и название) |
-| `/field [номер] …` | `/field 1 название` | где искать: везде, название, описание, компания |
-| `/area [номер] …` | `/area 1 москва` | москва (1), питер (2), россия (113) |
-| `/schedule [номер] …` | `/schedule 1 удалённо` | remote/удалённо, fullday, flexible, shift, vahta, any |
-| `/exp [номер] …` | `/exp 1-3` | без опыта, 1-3, 3-6, 6+, any |
-| `/salary [номер] …` | `/salary 150000` | зарплата от (0 — убрать) |
-| `/rating [номер] …` | `/rating 1 4.5` | мин. рейтинг работодателя |
-| `/off [номер]` | `/off 2` | выключить подборку (не ищет, не шлёт) |
-| `/on [номер]` | `/on 2` | включить обратно |
-
-Номер можно опускать: без него команда применяется ко всем своим подборкам
-(если подборка одна — к ней). Пример полной настройки из чата:
-`/add врач терапевт` → `/field 1 название` → `/area москва` → `/rating 4.0`.
-
-### Конструктор в дашборде (без запоминания команд)
-
-В дашборде бейджи подборок **кликабельны**: клик скрывает/показывает подборку
-(только вид, хранится в браузере). Выключенные через `/off` показаны бледными
-с ⏸ — бот их не ищет. Полное выключение/включение — команды `/off`, `/on`.
-
-В дашборде → **Настройки** → **Конструктор подборки**: заполняете поля
-(ключевые слова, где искать, регион, график, опыт, зарплата, рейтинг) —
-дашборд собирает готовую команду. Кнопка **«Отправить боту»** открывает Telegram
-с уже подставленным текстом — остаётся нажать «отправить».
-Для изменения своей подборки впишите её номер из `/list` — соберётся `/replace`.
-
-Личные подборки попадают и в рассылку (только автору), и в дашборд (с пометкой 👤).
-Хранятся в `data/personal.json`, общие подборки — по-прежнему в `config/searches.yaml`.
-
-## Быстрый старт (10 минут)
-
-### 1. Создайте Telegram-бота
-1. Напишите [@BotFather](https://t.me/BotFather) → `/newbot` → получите **токен**.
-2. Откройте вашего бота и нажмите `/start` (это нужно сделать **каждому получателю**).
-
-### 2. Загрузите проект на GitHub
+### 3. Webhook бота (после первого деплоя)
 ```bash
-git add -A && git commit -m "hhbot init" && git push
-# или создайте репозиторий на github.com и запушьте эту папку
+curl "https://api.telegram.org/bot<ТОКЕН>/setWebhook" \
+  -H "Content-Type: application/json" \
+  -d '{"url":"https://<ваш-сайт>/.netlify/functions/tg-webhook"}'
 ```
+Проверка: напишите боту `/start` — меню должно прийти за пару секунд.
 
-### 3. Добавьте Secret с токеном
-Repo → **Settings → Secrets and variables → Actions → New repository secret**:
-- Name: `TELEGRAM_BOT_TOKEN`, Value: токен от BotFather.
+### 4. Готово
+- Пользователи жмут `/start`, создают подборки кнопками — всё без кода.
+- Каждые 3 часа `fetch-vacancies` рассылает новое и обновляет дашборд.
+- Старый конвейер GitHub Actions удалён (дублей рассылки не будет);
+  GitHub Pages больше не используется (каталог `docs/` оставлен пустым).
 
-Опционально (официальный API hh.ru вместо публичного):
-- `HH_ACCESS_TOKEN` — OAuth-токен приложения с dev.hh.ru
-- `HH_USER_AGENT` — например `my-hh-bot/1.0 (you@yourdomain.ru)`
+## Меню бота
 
-### 4. Привяжите пользователей (username → chat_id)
-Локально (нужен Python 3.10+ и `pip install pyyaml`):
-```bash
-export TELEGRAM_BOT_TOKEN=xxx   # тот же токен
-python src/resolve_users.py     # покажет chat_id тех, кто нажал /start
-```
-Впишите их в `config/users.yaml`:
-```yaml
-users:
-  - username: "ivan_petrov"
-    chat_id: 123456789
-```
-Закоммитьте и запушьте. Готово — дальше всё само.
+- **🔍 Новая подборка** → спрашивает ключевые слова → меню кнопками:
+  где искать, регион (Москва/СПб/Россия), график, зарплата (пороги + своя сумма),
+  рейтинг → **✅ Подписаться**.
+- **📋 Мои подборки** → вкл/выкл одной кнопкой, изменить (мастер), удалить.
+- **📊 Дашборд** → ссылка (плюс WebApp-кнопка в чате).
+- Быстрые команды: `/list`, `/del 1`, `/on 1`, `/off 1`,
+  `/add текст`, `/add текст | москва | удалённо | 4.5` (и `/replace N | …`).
 
-### 5. Включите GitHub Pages (дашборд)
-Repo → **Settings → Pages → Source: GitHub Actions**.
-После первого запуска workflow дашборд будет доступен по адресу
-`https://<ваш-логин>.github.io/<репозиторий>/`.
-
-Проверить работу можно сразу: **Actions → HH Vacancies Bot → Run workflow**.
-
-## Настройка выдачи (`config/searches.yaml`)
-
-Каждая подборка — это один набор фильтров. Все поля из ТЗ покрыты:
-
-| Поле | Что делает | Значения hh.ru |
-|---|---|---|
-| `text` | ключевое слово | любое, напр. `python разработчик` |
-| `search_field` | где искать слово | `everywhere` (везде), `name` (в названии), `company_name` (в компании), `description` (в описании) |
-| `area` | локация | `1` Москва, `2` СПб, `113` вся Россия… полный список: https://api.hh.ru/areas |
-| `schedule` | график — **все варианты hh.ru** | `fullDay` (полный день), `shift` (сменный), `flexible` (гибкий), `remote` (удалённо), `flyInFlyOut` (вахта) |
-| `employment` | тип занятости | `full`, `part`, `project`, `volunteer`, `probation` |
-| `experience` | опыт | `noExperience`, `between1And3`, `between3And6`, `moreThan6` |
-| `salary_from` / `only_with_salary` | зарплата | число в рублях + флаг «только с зарплатой» |
-| `search_period` | свежесть | `1`, `3`, `7`, `30` дней |
-| `min_employer_rating` | **рейтинг работодателя** (звёзды hh.ru) | `0` — выкл, напр. `4.0` |
-| `exclude_keywords` | стоп-слова в названии | напр. `["стажер"]` |
-| `max_results` | лимит на подборку | напр. `50` |
-| `notify_users` | кому слать | `[]` — всем из users.yaml, или `["@ivan"]` |
-
-Пример — только удалёнка с рейтингом 4.5+ в названии:
-```yaml
-- id: python_remote_top
-  name: "Python remote 4.5+"
-  text: "python"
-  search_field: name
-  area: [113]
-  schedule: [remote]
-  employment: [full]
-  min_employer_rating: 4.5
-  search_period: 3
-  max_results: 50
-  notify_users: []
-```
-
-## Автозапуск каждые 5 минут (важно)
-
-Встроенный планировщик GitHub (`schedule: cron`) для этого репозитория не срабатывает
-(проверено: конфиг верный, workflow активен, за несколько часов — ноль автозапусков).
-Поэтому используется внешний бесплатный cron → `repository_dispatch` (проверено, работает).
-Настройка один раз (~5 мин):
-
-1. GitHub → Settings (ваш профиль, не репозитория) → Developer settings →
-   Personal access tokens → Tokens (classic) → Generate new token:
-   имя `hhbot-cron`, scope `repo` (или `public_repo`), Expiration — No expiration.
-   Скопируйте токен.
-2. Зарегистрируйтесь на https://cron-job.org (бесплатно) → Create cronjob:
-   - Title: `HHbot tick`, URL: `https://api.github.com/repos/nesioptar-cmd/HHbot/dispatches`
-   - Method: POST, Body: `{"event_type":"tick"}`
-   - Headers: `Accept: application/vnd.github+json`, `Authorization: Bearer ВСТАВЬТЕ_ТОКЕН`
-   - Schedule: каждые 5 минут.
-3. Готово: cron-job.org будет будить workflow, бот отвечает в течение ~5–6 мин.
-   Встроенный `schedule` оставлен как запасной — если планировщик GitHub очнётся,
-   дубли рассылки отсекаются (`cancel-in-progress` + дедупликация по ID).
-
-## Дашборд
-
-Дизайн — `frontend/` (тёмная/светлая тема, карточки, бейджи подборок, фильтры:
-поиск, подборка, график, сортировка, мин. рейтинг; «новые» помечаются по локальному
-просмотру, кнопка «Отметить просмотренными»). Модалка «Настройки» показывает
-активные подборки из репозитория в режиме чтения — фильтры меняются только через
-`config/searches.yaml` (токен бота в браузер не выносится из соображений безопасности).
-
-`src/main.py` при каждом прогоне копирует `frontend/` в `docs/` и дописывает
-`vacancies.json` + `config.json` — Pages публикует готовую статику, бэкенд не нужен.
-
-## Локальный запуск
+## Локальная проверка
 
 ```bash
-pip install -r requirements.txt
-TELEGRAM_BOT_TOKEN=xxx python src/main.py --send     # fetch + рассылка + дашборд
-python src/main.py --no-send                          # только дашборд, без рассылки
-open docs/index.html
+npm install
+node test/local.mjs   # webhook-диалоги (мок Telegram) + живой fetch hh.ru + api-data
 ```
-
-Дедупликация: отправленные вакансии запоминаются в `data/seen.json`
-(ключ `search_id:vacancy_id`), повторных сообщений не будет.
-
-## Лимиты бесплатного тарифа
-
-- GitHub Actions: 2000 мин/мес для приватных репо (для публичных — безлимит).
-  Один прогон ~30–60 сек → запуск каждые 30 мин ≈ 700 мин/мес. Влезаете с запасом.
-- GitHub Pages: 100 ГБ трафика/мес — для дашборда более чем достаточно.
-- Telegram: ~30 сообщений/сек, бот шлёт ≤10 новых на пользователя за прогон.
-- hh.ru: пауза 0.4 сек между страницами, лимит глубины 2000 вакансий (ограничение самого hh).
+Тесты ходят в настоящий hh.ru, токены не нужны. Локальное хранилище — файлы
+(`STORE=file`), в проде — Netlify Blobs.
 
 ## Структура
 
 ```
-config/searches.yaml   фильтры выдачи
-config/users.yaml      получатели (username → chat_id)
-src/hh_client.py       клиент hh.ru (shards без капчи + official с токеном)
-src/filters.py         рейтинг / стоп-слова / проверка ключевого слова
-src/telegram.py        отправка в Telegram
-src/dashboard.py       копирование frontend/ в docs/ + vacancies.json/config.json
-src/main.py            оркестратор
-src/resolve_users.py   username → chat_id через getUpdates
-frontend/             дизайн дашборда (index.html/app.js/style.css, источник для docs/)
-.github/workflows/    cron + деплой Pages
-docs/                 собранный дашборд (GitHub Pages, генерируется автоматически)
-data/seen.json        уже отправленные вакансии
+netlify/functions/tg-webhook.mjs    приём webhook, мгновенные ответы
+netlify/functions/fetch-vacancies.mjs  сбор раз в 3 часа (schedule в netlify.toml)
+netlify/functions/api-data.mjs      данные для дашборда
+netlify/lib/bot.mjs                 меню, мастер, команды, подписки
+netlify/lib/hh.mjs                  hh.ru: shards + официальный API
+netlify/lib/filters.mjs             фильтры, рейтинг, оформление сообщений
+netlify/lib/tg.mjs                  Telegram Bot API
+netlify/lib/seeds.mjs               общие подборки (врач-терапевт, телемедицина)
+netlify/lib/store.mjs               Blobs / файлы
+public/                             дашборд (тёмная/светлая тема, фильтры, конструктор)
+test/local.mjs                      стенд
+src/                                старая Python-версия v1 (не используется, на удаление)
+config/                             старые yaml v1 (не используются, на удаление)
 ```

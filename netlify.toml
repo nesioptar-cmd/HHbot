@@ -1,0 +1,6 @@
+[build]
+  publish = "public"
+  functions = "netlify/functions"
+
+[functions."fetch-vacancies"]
+  schedule = "0 */3 * * *"

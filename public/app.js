@@ -266,15 +266,12 @@ async function loadJson(path) {
 async function refresh(showToast) {
   const listEl = document.getElementById('vacancies-list');
   try {
-    const [cfg, vacs] = await Promise.all([
-      loadJson('config.json'),
-      loadJson('vacancies.json'),
-    ]);
-    searches = cfg.searches || [];
-    generatedAt = cfg.generated_at || '';
-    notifyCount = cfg.notify_users_count || 0;
-    botUsername = cfg.bot_username || botUsername;
-    vacancies = Array.isArray(vacs) ? vacs : [];
+    const data = await loadJson('/.netlify/functions/api-data');
+    searches = data.searches || [];
+    generatedAt = data.generated_at || '';
+    notifyCount = data.notify_users_count || 0;
+    botUsername = data.bot_username || botUsername;
+    vacancies = Array.isArray(data.vacancies) ? data.vacancies : [];
     renderSearchOptions();
     buildCommand();
     renderAll();
