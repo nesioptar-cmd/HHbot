@@ -147,7 +147,7 @@ def main():
             if sent >= 10:
                 break
             telegram.send_message(token, chat_id, head_tpl.format(n=len(vs), name=s.get("name")))
-            for _, v in vs[:10 - sent]:
+            for v in vs[:10 - sent]:
                 if sent >= 10:
                     break
                 ok, _ = telegram.send_message(
