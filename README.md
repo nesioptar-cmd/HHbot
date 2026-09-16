@@ -148,6 +148,26 @@ Repo → **Settings → Pages → Source: GitHub Actions**.
   notify_users: []
 ```
 
+## Автозапуск каждые 5 минут (важно)
+
+Встроенный планировщик GitHub (`schedule: cron`) для этого репозитория не срабатывает
+(проверено: конфиг верный, workflow активен, за несколько часов — ноль автозапусков).
+Поэтому используется внешний бесплатный cron → `repository_dispatch` (проверено, работает).
+Настройка один раз (~5 мин):
+
+1. GitHub → Settings (ваш профиль, не репозитория) → Developer settings →
+   Personal access tokens → Tokens (classic) → Generate new token:
+   имя `hhbot-cron`, scope `repo` (или `public_repo`), Expiration — No expiration.
+   Скопируйте токен.
+2. Зарегистрируйтесь на https://cron-job.org (бесплатно) → Create cronjob:
+   - Title: `HHbot tick`, URL: `https://api.github.com/repos/nesioptar-cmd/HHbot/dispatches`
+   - Method: POST, Body: `{"event_type":"tick"}`
+   - Headers: `Accept: application/vnd.github+json`, `Authorization: Bearer ВСТАВЬТЕ_ТОКЕН`
+   - Schedule: каждые 5 минут.
+3. Готово: cron-job.org будет будить workflow, бот отвечает в течение ~5–6 мин.
+   Встроенный `schedule` оставлен как запасной — если планировщик GitHub очнётся,
+   дубли рассылки отсекаются (`cancel-in-progress` + дедупликация по ID).
+
 ## Дашборд
 
 Дизайн — `frontend/` (тёмная/светлая тема, карточки, бейджи подборок, фильтры:
