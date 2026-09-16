@@ -40,10 +40,13 @@ def build_dashboard(vacancies, searches, docs_dir, notify_users_count=0):
             "only_with_salary": bool(s.get("only_with_salary")),
             "search_period": s.get("search_period"),
             "min_employer_rating": s.get("min_employer_rating") or 0,
+            "owner": s.get("owner") or "",
+            "personal": bool(s.get("personal")),
         })
     with open(os.path.join(docs_dir, "config.json"), "w", encoding="utf-8") as f:
         json.dump({
             "generated_at": datetime.now(MSK).strftime("%d.%m.%Y %H:%M"),
+            "bot_username": os.environ.get("BOT_USERNAME", "hhedz_bot"),
             "searches": public_searches,
             "notify_users_count": int(notify_users_count or 0),
         }, f, ensure_ascii=False, indent=2)

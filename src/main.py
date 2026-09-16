@@ -92,6 +92,8 @@ def main():
             for i, p in enumerate(plist, 1):
                 p = dict(p)
                 p["id"] = f"u_{owner}_{i}"
+                p["owner"] = owner
+                p["personal"] = True
                 p.setdefault("notify_users", [owner])
                 searches.append(p)
     else:

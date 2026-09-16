@@ -61,6 +61,8 @@ EXP_RU = {"noExperience": "без опыта", "between1And3": "1–3 года",
 HELP = (
     "🤖 <b>Команды</b> (номер — из /list, можно опускать):\n"
     "/add <i>текст</i> — новая подборка\n"
+    "/add <i>текст | регион | график | рейтинг | зарплата | опыт | где</i> — сразу с фильтрами\n"
+    "/replace <i>номер | …</i> — заменить подборку целиком (это собирает форма в дашборде)\n"
     "/list — мои подборки\n"
     "/show <i>[номер]</i> — подробно об одной\n"
     "/del <i>номер</i> — удалить\n"
@@ -73,6 +75,53 @@ HELP = (
     "/rating <i>[номер] 0–5</i> — мин. рейтинг работодателя\n"
     "⏱ Срабатывают при ближайшем обновлении (до ~30 мин)."
 )
+
+
+def parse_spec(spec):
+    """'текст | москва | удалённо | 4.5 | 150000 | 1-3 | название' -> dict полей.
+
+    Каждый кусок классифицируется: регион, график, рейтинг (0–5 с точкой),
+    зарплата (большое число), опыт, где искать — остальное склеивается в текст.
+    """
+    s = new_personal_search("")
+    texts = []
+    for raw in spec.split("|"):
+        part = raw.strip()
+        if not part:
+            continue
+        low = part.lower()
+        if low in AREA_ALIASES:
+            s["area"] = AREA_ALIASES[low]
+            continue
+        if low in SCHEDULE_ALIASES:
+            s["schedule"] = SCHEDULE_ALIASES[low]
+            continue
+        if low in FIELD_ALIASES:
+            s["search_field"] = FIELD_ALIASES[low]
+            continue
+        if low in EXP_ALIASES:
+            s["experience"] = [EXP_ALIASES[low]] if EXP_ALIASES[low] else []
+            continue
+        digits = "".join(ch for ch in part if ch.isdigit())
+        if digits and low.replace(" ", "").replace("\u00a0", "") == digits:
+            num = int(digits)
+            if num <= 5 and s["min_employer_rating"] == 0.0:
+                s["min_employer_rating"] = float(num)
+            else:
+                s["salary_from"] = num
+            continue
+        try:
+            r = float(part.replace(",", "."))
+            if 0 < r <= 5 and s["min_employer_rating"] == 0.0:
+                s["min_employer_rating"] = r
+                continue
+        except ValueError:
+            pass
+        texts.append(part)
+    text = " ".join(texts).strip()[:100]
+    s["text"] = text
+    s["name"] = f"👤 {text[:40]}"
+    return s
 
 DASHBOARD_KB = {
     "inline_keyboard": [[{"text": "📊 Открыть дашборд", "url": DASHBOARD_URL}]]
@@ -168,10 +217,33 @@ def handle_command(cmd, arg, username, personal):
         return (HELP, False)
     if cmd == "add":
         if not arg:
-            return ("Использование: /add <i>ключевые слова</i>, напр. /add python", False)
-        mine.append(new_personal_search(arg[:100]))
-        return (f"✅ Подборка №{len(mine)} добавлена: «{arg[:100]}».\n"
-                f"Уточните: /schedule удалённо · /area москва · /rating 4.5", False)
+            return ("Использование: /add <i>текст</i> или /add <i>текст | регион | график | "
+                    "рейтинг | зарплата | опыт | где</i>", False)
+        if "|" in arg:
+            s = parse_spec(arg)
+            if not s["text"]:
+                return ("Не понял запрос. Пример: /add <i>врач терапевт | москва | 4.5</i>", False)
+            mine.append(s)
+        else:
+            mine.append(new_personal_search(arg[:100]))
+        return (f"✅ Подборка №{len(mine)} добавлена: {_describe(mine[-1], len(mine))}", False)
+    if cmd == "replace":
+        err = _need(mine)
+        if err:
+            return (err, False)
+        head, _, spec = arg.partition("|")
+        head = head.strip()
+        if not head.isdigit() or not spec.strip():
+            return ("Использование: /replace <i>номер | текст | регион | …</i> "
+                    "(собирается формой в дашборде)", False)
+        n = int(head)
+        if not 1 <= n <= len(mine):
+            return (f"Подборки №{n} нет. Смотрите /list.", False)
+        s = parse_spec(spec)
+        if not s["text"]:
+            return ("Не понял запрос. Пример: /replace <i>1 | врач терапевт | москва</i>", False)
+        mine[n - 1] = s
+        return (f"✅ Подборка №{n} заменена: {_describe(s, n)}", False)
     if cmd == "list":
         if not mine:
             return ("У вас пока нет личных подборок. Добавьте: /add <i>текст</i>", False)
