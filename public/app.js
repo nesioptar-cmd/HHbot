@@ -29,6 +29,7 @@ let vacancies = [];
 let generatedAt = '';
 let notifyCount = 0;
 let botUsername = 'hhedz_bot';
+let isPrivate = false;
 let seen = new Set();
 let hidden = new Set();
 
@@ -229,27 +230,26 @@ function openSettings() {
   const wa = window.Telegram && window.Telegram.WebApp;
   const me = (wa && wa.initDataUnsafe && wa.initDataUnsafe.user) || null;
   if (wa) { try { wa.ready(); wa.expand(); } catch (e) { /* ignore */ } }
-  // порядковый номер внутри подписок владельца (совпадает с индексом в боте)
-  const perOwner = {};
+  // порядковый номер среди своих (совпадает с индексом в боте)
+  let myIdx = -1;
   const rows = searches.map((s) => {
     let ctl = '';
-    if (s.personal && me && s.owner && s.owner === me.username) {
-      const idx = (perOwner[s.owner] = (perOwner[s.owner] || 0) + 1) - 1;
+    if (s.mine) {
+      myIdx += 1;
+      const idx = myIdx;
       ctl = ` <button class="btn btn-ghost btn-sm" data-sub="toggle" data-idx="${idx}" title="Вкл/выкл">`
         + `${s.enabled === false ? '▶' : '⏸'}</button>`
         + ` <button class="btn btn-ghost btn-sm" data-sub="delete" data-idx="${idx}" title="Удалить">🗑</button>`;
-    } else if (s.personal) {
-      perOwner[s.owner] = (perOwner[s.owner] || 0) + 1;
     }
     return `<p style="margin-bottom:.6rem"><b>${esc(s.name)}</b>`
-      + (s.owner ? ` <span class="form-hint">@${esc(s.owner)}</span>` : '')
+      + (s.mine ? ` <span class="form-hint">моя</span>` : '')
       + (s.enabled === false ? ` <span class="form-hint">⏸ выключена</span>` : '')
       + ctl
       + `<br><span class="form-hint">${esc(fmtSearchLine(s))}</span></p>`;
   }).join('');
   box.innerHTML = (searches.length ? rows : '<p class="form-hint">Подборки не заданы.</p>')
-    + (me ? '' : '<p class="form-hint" style="margin-top:.5rem">Управление своими подписками '
-      + '(удалить/выключить) доступно, если открыть дашборд через кнопку 📊 в боте.</p>');
+    + (me ? '' : '<p class="form-hint" style="margin-top:.5rem">Это общий вид. '
+      + 'Свои подписки и управление ими — если открыть дашборд через кнопку 📊 в боте.</p>');
   document.getElementById('settings-telegram').innerHTML =
     `<p class="form-hint">Получателей: <b>${notifyCount}</b>. Рассылку отправляет GitHub Actions, `
     + `бот пишет только тем, кто нажал /start и добавлен в <code>config/users.yaml</code>.</p>`;
@@ -288,7 +288,21 @@ async function loadJson(path) {
 async function refresh(showToast) {
   const listEl = document.getElementById('vacancies-list');
   try {
-    const data = await loadJson('/.netlify/functions/api-data');
+    const wa0 = window.Telegram && window.Telegram.WebApp;
+    let data;
+    if (wa0 && wa0.initData) {
+      const res = await fetch('/.netlify/functions/api-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ initData: wa0.initData }),
+        cache: 'no-store',
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      data = await res.json();
+    } else {
+      data = await loadJson('/.netlify/functions/api-data');
+    }
+    isPrivate = Boolean(data.private);
     searches = data.searches || [];
     generatedAt = data.generated_at || '';
     notifyCount = data.notify_users_count || 0;

@@ -89,17 +89,17 @@ const cache = JSON.parse(fs.readFileSync(".tmp-test/cache.json", "utf8"));
 assert(cache.vacancies.length > 0, "кэш вакансий записан");
 
 const api = (await import("../netlify/functions/api-data.mjs")).handler;
-const data = JSON.parse((await api()).body);
-assert(data.vacancies.length === cache.vacancies.length, "api-data отдаёт кэш");
-assert(data.searches.length >= 2, "api-data отдаёт сиды + личные");
+const data = JSON.parse((await api({ httpMethod: "GET" })).body);
+assert(data.vacancies.length === 0, "GET без подписи: чужое скрыто");
+assert(data.private !== true, "GET без подписи: публичный режим");
 assert(data.bot_username === "hhedz_bot", "bot_username в ответе");
 
 // протухший кэш: вакансия без активных подписок должна отсекаться
 cache.vacancies.push({ id: "orphan1", name: "Мусор", search_ids: ["deleted-search"], search_names: ["Удалённая"] });
 fs.writeFileSync(".tmp-test/cache.json", JSON.stringify(cache));
-const data2 = JSON.parse((await api()).body);
+const data2 = JSON.parse((await api({ httpMethod: "GET" })).body);
 assert(!data2.vacancies.some((v) => v.id === "orphan1"), "осиротевшие вакансии отсекаются");
-assert(data2.vacancies.length === cache.vacancies.length - 1, "остальные на месте");
+assert(data2.vacancies.length === 0, "без своих подписок в GET — пусто");
 
 await msg("/new");
 const freshMsgs = sent.filter((s) => s.method === "sendMessage").slice(-9);
