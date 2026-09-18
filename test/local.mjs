@@ -106,4 +106,17 @@ const freshMsgs = sent.filter((s) => s.method === "sendMessage").slice(-9);
 assert(freshMsgs[0]?.body.text.includes("Последние по вашим подпискам"), "/new → заголовок");
 assert(freshMsgs.length > 1 && freshMsgs[1].body.text.includes("💼"), "/new → карточки вакансий");
 
+// /new не показывает выключенные подписки
+const { showFresh } = await import("../netlify/lib/bot.mjs");
+sent.length = 0;
+await showFresh({ chatId: 777 }, {
+  searches: [{ name: "👤 on", enabled: true }, { name: "👤 off", enabled: false }],
+  cache: { generated_at: "x", vacancies: [
+    { id: "1", name: "A", url: "u1", employer: "E", area: "", salary_from: 0, salary_to: 0, currency: "", rating: 0, reviews_count: 0, schedule: "", published_at: "2026-09-17", search_names: ["👤 on"] },
+    { id: "2", name: "B", url: "u2", employer: "E", area: "", salary_from: 0, salary_to: 0, currency: "", rating: 0, reviews_count: 0, schedule: "", published_at: "2026-09-17", search_names: ["👤 off"] },
+  ] },
+});
+const out = sent.map((s) => s.body.text).join("\n");
+assert(out.includes("A") && !out.includes("\nB") && !out.includes("👤 off"), "/new только по активным");
+
 console.log(`\nAPI-вызовов Telegram смокировано: ${sent.length}`);

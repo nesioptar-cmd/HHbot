@@ -127,8 +127,9 @@ export function mainMenu() {
 export async function showFresh(ctx, state) {
   const { chatId } = ctx;
   const cache = state.cache || { generated_at: "", vacancies: [] };
-  const seedNames = SEEDS.map((s) => s.name);
-  const myNames = new Set([...seedNames, ...state.searches.map((s) => s.name)]);
+  const seedNames = SEEDS.filter((s) => s.enabled !== false).map((s) => s.name);
+  const myNames = new Set([...seedNames,
+    ...state.searches.filter((s) => s.enabled !== false).map((s) => s.name)]);
   const mine = (cache.vacancies || []).filter((v) =>
     (v.search_names || []).some((n) => myNames.has(n)));
   mine.sort((a, b) => String(b.published_at || "").localeCompare(String(a.published_at || "")));
