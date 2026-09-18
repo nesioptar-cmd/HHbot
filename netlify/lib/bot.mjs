@@ -151,6 +151,7 @@ export function wizardMenu(draft) {
   const a = String((draft.area || [113])[0]);
   const sch = (draft.schedule || [])[0] || "any";
   const emp = (draft.employment || [])[0] || "any";
+  const exp = (draft.experience || [])[0] || "any";
   const r = draft.min_employer_rating >= 4.5 ? "4.5" : draft.min_employer_rating >= 4 ? "4.0" : "0";
   const sal = draft.salary_from || 0;
   const salBtn = (v, l) => btn(((sal === v) ? "✅ " : "") + l, `wiz:salary:${v}`);
@@ -165,6 +166,8 @@ export function wizardMenu(draft) {
         btn(mark(sch, v) + l, `wiz:schedule:${v}`)),
       [["any", "Любая"], ["full", "Полная"], ["part", "Частичная"], ["project", "Проектная"]].map(([v, l]) =>
         btn(mark(emp, v) + l, `wiz:employment:${v}`)),
+      [["any", "Любой"], ["noExperience", "Без опыта"], ["between1And3", "1–3"], ["between3And6", "3–6"], ["moreThan6", "6+"]].map(([v, l]) =>
+        btn(mark(exp, v) + l, `wiz:exp:${v}`)),
       [["0", "Любой"], ["4.0", "4.0+"], ["4.5", "4.5+"]].map(([v, l]) =>
         btn(mark(r, v) + l, `wiz:rating:${v}`)),
       [salBtn(0, "Любая"), salBtn(50000, "50k"), salBtn(100000, "100k"), salBtn(150000, "150k")],
@@ -337,6 +340,7 @@ export async function onCallback(ctx, data, msgId, state) {
     else if (key === "area" && ["1", "2", "113"].includes(val)) d.area = [parseInt(val, 10)];
     else if (key === "schedule" && ["any", "remote", "fullDay"].includes(val)) d.schedule = val === "any" ? [] : [val];
     else if (key === "employment" && ["any", "full", "part", "project"].includes(val)) d.employment = val === "any" ? [] : [val];
+    else if (key === "exp" && ["any", "noExperience", "between1And3", "between3And6", "moreThan6"].includes(val)) d.experience = val === "any" ? [] : [val];
     else if (key === "rating" && ["0", "4.0", "4.5"].includes(val)) d.min_employer_rating = parseFloat(val);
     else if (key === "salary" && /^\d+$/.test(val || "")) d.salary_from = parseInt(val, 10);
     else if (key === "salarycustom") {

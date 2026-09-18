@@ -60,6 +60,8 @@ await tap("wiz:area:1");
 await tap("wiz:schedule:remote");
 await tap("wiz:rating:4.0");
 await tap("wiz:salary:100000");
+await tap("wiz:exp:between1And3");
+assert(lastEdit().includes("1–3"), "кнопка опыта меняет черновик");
 assert(lastEdit().includes("Москва") && lastEdit().includes("удалённо"), "кнопки меняют черновик");
 await tap("wiz:done");
 assert(lastEdit().includes("Готово"), "done → подписка создана");
