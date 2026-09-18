@@ -11,7 +11,13 @@ import { SEEDS } from "../lib/seeds.mjs";
 const nowMSK = () =>
   new Date(Date.now() + 3 * 3600 * 1000).toISOString().slice(0, 16).replace("T", " ");
 
-export async function handler() {
+export async function handler(event) {
+  // Ручной запуск: ?key=ADMIN_KEY (для отладки и принудительных обновлений).
+  // Плановые вызовы по расписанию идут без ключа.
+  const key = event?.queryStringParameters?.key;
+  if (key && key !== (process.env.ADMIN_KEY || "")) {
+    return { statusCode: 403, body: "forbidden" };
+  }
   const subs = (await storeGet("subs", {})) || {};
   const seenAll = (await storeGet("seen", {})) || {};
   const chatIds = Object.keys(subs);
