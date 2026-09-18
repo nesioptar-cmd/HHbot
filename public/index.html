@@ -71,6 +71,11 @@
   <section class="filter-bar" id="filter-bar">
     <input id="f-q" class="filter-search" placeholder="🔍 Поиск по названию / компании…">
     <select id="f-search" title="Подборка"><option value="">Все подборки</option></select>
+    <select id="f-src" title="Источник">
+      <option value="">Все источники</option>
+      <option value="hh">hh.ru</option>
+      <option value="fl">FL.ru</option>
+    </select>
     <select id="f-sched" title="График">
       <option value="">Любой график</option>
       <option value="remote">Удалённо</option>
@@ -128,6 +133,13 @@
         <div class="form-field">
           <label for="b-text">Ключевые слова</label>
           <input type="text" id="b-text" placeholder="напр. врач терапевт">
+        </div>
+        <div class="form-field">
+          <label for="b-src">Источник</label>
+          <select id="b-src">
+            <option value="hh.ru">hh.ru — вакансии</option>
+            <option value="FL.ru">FL.ru — заказы</option>
+          </select>
         </div>
         <div class="form-field">
           <label for="b-field">Где искать</label>

@@ -7,6 +7,8 @@
 import { storeGet, storeSet } from "../lib/store.mjs";
 import { verifyInitData } from "../lib/webapp.mjs";
 
+export { verifyInitData };
+
 export async function handler(event) {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "method not allowed" };

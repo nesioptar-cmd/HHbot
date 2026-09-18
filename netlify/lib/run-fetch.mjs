@@ -2,12 +2,31 @@
 
 import { storeGet, storeSet } from "./store.mjs";
 import { search } from "./hh.mjs";
+import { fetchFeed, matchSubscription, normalize as normalizeFl } from "./fl.mjs";
 import { applyFilters, formatVacancy } from "./filters.mjs";
 import { sendMessage } from "./tg.mjs";
 import { SEEDS } from "./seeds.mjs";
 
 const nowMSK = () =>
   new Date(Date.now() + 3 * 3600 * 1000).toISOString().slice(0, 16).replace("T", " ");
+
+function mergeInto(merged, cacheMerged, s, sid, sname, items) {
+  for (const v of items) {
+    const vid = String(v.id);
+    if (!merged.has(vid)) {
+      merged.set(vid, { ...v, search_ids: [], search_names: [] });
+    }
+    const m = merged.get(vid);
+    if (!m.search_ids.includes(sid)) m.search_ids.push(sid);
+    if (!m.search_names.includes(sname)) m.search_names.push(sname);
+    if (!cacheMerged.has(vid)) cacheMerged.set(vid, m);
+    else {
+      const c = cacheMerged.get(vid);
+      for (const x of m.search_ids) if (!c.search_ids.includes(x)) c.search_ids.push(x);
+      for (const x of m.search_names) if (!c.search_names.includes(x)) c.search_names.push(x);
+    }
+  }
+}
 
 export async function runFetch() {
   const subs = (await storeGet("subs", {})) || {};
@@ -16,6 +35,21 @@ export async function runFetch() {
   console.log(`[fetch] chats: ${chatIds.length}`);
 
   const cacheMerged = new Map();
+
+  // RSS FL.ru тянем один раз на прогон (общий для всех подписок).
+  let flFeed = null;
+  let flFailed = false;
+  async function getFlFeed() {
+    if (flFeed || flFailed) return flFeed;
+    try {
+      flFeed = await fetchFeed();
+      console.log(`[fetch] FL feed: ${flFeed.length} items`);
+    } catch (e) {
+      flFailed = true;
+      console.log("[fetch] FL feed error:", e.message);
+    }
+    return flFeed;
+  }
 
   for (const chatId of chatIds) {
     const u = subs[chatId];
@@ -28,6 +62,13 @@ export async function runFetch() {
     for (const s of searches) {
       const sid = s.id || s.name;
       const sname = s.name;
+      if ((s.source || "hh") === "fl") {
+        const feed = await getFlFeed();
+        if (!feed) continue;
+        mergeInto(merged, cacheMerged, s, sid, sname,
+          matchSubscription(feed, s).map(normalizeFl));
+        continue;
+      }
       let items = [];
       try {
         const r = await search(s, s.max_results || 50);
@@ -37,21 +78,7 @@ export async function runFetch() {
         console.log("[fetch] search error:", e.message);
         continue;
       }
-      for (const v of items) {
-        const vid = String(v.id);
-        if (!merged.has(vid)) {
-          merged.set(vid, { ...v, search_ids: [], search_names: [] });
-        }
-        const m = merged.get(vid);
-        if (!m.search_ids.includes(sid)) m.search_ids.push(sid);
-        if (!m.search_names.includes(sname)) m.search_names.push(sname);
-        if (!cacheMerged.has(vid)) cacheMerged.set(vid, m);
-        else {
-          const c = cacheMerged.get(vid);
-          for (const x of m.search_ids) if (!c.search_ids.includes(x)) c.search_ids.push(x);
-          for (const x of m.search_names) if (!c.search_names.includes(x)) c.search_names.push(x);
-        }
-      }
+      mergeInto(merged, cacheMerged, s, sid, sname, items);
     }
 
     const fresh = [...merged.values()].filter((m) => !seen.has(String(m.id)));

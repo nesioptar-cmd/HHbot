@@ -151,6 +151,7 @@ function cardHtml(v) {
     : 'без рейтинга';
   const sal = formatSalary(v);
   const tags = [];
+  tags.push(v.source === 'fl' ? 'FL.ru' : 'hh.ru');
   if (SCHEDULE_RU[v.schedule]) tags.push(SCHEDULE_RU[v.schedule]);
   if (EXPERIENCE_RU[v.experience]) tags.push(EXPERIENCE_RU[v.experience]);
   if (v.area) tags.push(v.area);
@@ -166,6 +167,7 @@ function cardHtml(v) {
     + `<div class="vacancy-employer">${esc(v.employer || 'Не указан')} · ${esc(rating)}</div>`
     + (sal ? `<div class="vacancy-salary">${esc(sal)}</div>` : '')
     + `<div class="vacancy-tags">${tags.map((t) => `<span class="vacancy-tag">${esc(t)}</span>`).join('')}</div>`
+    + (v.snippet ? `<div class="vacancy-snippet">${esc(v.snippet)}</div>` : '')
     + `<div class="vacancy-footer">`
     + (v.published_at ? `<span class="vacancy-date">Опубликовано: ${esc(formatDate(v.published_at))}</span>` : '')
     + `<a href="${esc(v.url)}" target="_blank" rel="noopener" class="vacancy-link">Открыть на hh.ru `
@@ -177,6 +179,7 @@ function currentFilters() {
   return {
     q: document.getElementById('f-q').value.trim().toLowerCase(),
     search: document.getElementById('f-search').value,
+    src: document.getElementById('f-src').value,
     sched: document.getElementById('f-sched').value,
     sort: document.getElementById('f-sort').value,
     minRate: parseFloat(document.getElementById('f-rate').value || '0') || 0,
@@ -188,8 +191,10 @@ function renderAll() {
   const f = currentFilters();
   let list = vacancies.filter((v) => {
     const sids = v.search_ids || [v.search_id];
+    const vsrc = v.source || 'hh';
     return sids.some((sid) => !hidden.has(sid))
       && (!f.search || sids.includes(f.search))
+      && (!f.src || vsrc === f.src)
       && (!f.sched || v.schedule === f.sched)
       && ((v.rating || 0) >= f.minRate)
       && (!f.q || `${v.name} ${v.employer}`.toLowerCase().includes(f.q));
@@ -211,6 +216,7 @@ function renderAll() {
 // ── Settings modal (read-only snapshot of repo config) ──
 function fmtSearchLine(s) {
   const parts = [];
+  parts.push(`источник: ${(s.source || 'hh') === 'fl' ? 'FL.ru' : 'hh.ru'}`);
   if (s.text) parts.push(`«${s.text}» (${SEARCH_FIELD_RU[s.search_field] || s.search_field || 'везде'})`);
   if (s.area && s.area.length) parts.push(`регионы: ${s.area.join(', ')}`);
   if (s.schedule && s.schedule.length) parts.push(`график: ${s.schedule.join(', ')}`);
@@ -268,7 +274,7 @@ function buildCommand() {
     const v = document.getElementById(id).value.trim();
     if (v) parts.push(v);
   };
-  push('b-area'); push('b-sched'); push('b-emp'); push('b-rating'); push('b-salary');
+  push('b-src'); push('b-area'); push('b-sched'); push('b-emp'); push('b-rating'); push('b-salary');
   push('b-exp'); push('b-field');
   const spec = parts.filter(Boolean).join(' | ');
   const cmd = num ? `/replace ${num} | ${spec}` : `/add ${spec}`;
@@ -383,10 +389,10 @@ function init() {
     subAction(b.getAttribute('data-sub'), parseInt(b.getAttribute('data-idx'), 10));
   });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSettings(); });
-  ['f-q', 'f-search', 'f-sched', 'f-sort', 'f-rate'].forEach((id) => {
+  ['f-q', 'f-search', 'f-src', 'f-sched', 'f-sort', 'f-rate'].forEach((id) => {
     document.getElementById(id).addEventListener('input', renderAll);
   });
-  ['b-num', 'b-text', 'b-field', 'b-area', 'b-sched', 'b-emp', 'b-exp', 'b-salary', 'b-rating'].forEach((id) => {
+  ['b-num', 'b-text', 'b-src', 'b-field', 'b-area', 'b-sched', 'b-emp', 'b-exp', 'b-salary', 'b-rating'].forEach((id) => {
     document.getElementById(id).addEventListener('input', buildCommand);
   });
   refresh(false);

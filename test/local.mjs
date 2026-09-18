@@ -54,7 +54,10 @@ await tap("menu:new");
 assert(lastEdit().includes("Что ищем"), "menu:new → просит ключевые слова");
 
 await msg("врач терапевт");
-assert(lastText().includes("Настройка"), "ключевое слово → мастер");
+assert(lastText().includes("где ищем"), "ключевое слово → выбор источника");
+
+await tap("wiz:source:hh");
+assert(lastEdit().includes("Настройка"), "источник hh → мастер");
 
 await tap("wiz:area:1");
 await tap("wiz:schedule:remote");

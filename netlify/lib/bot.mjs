@@ -26,15 +26,28 @@ export const EMPLOYMENT_RU = {
 
 export function blankDraft(text = "") {
   return {
-    text, search_field: "everywhere", area: [113], schedule: [],
+    text, source: "hh", search_field: "everywhere", area: [113], schedule: [],
     employment: [], experience: [], salary_from: 0, only_with_salary: false,
     search_period: 7, min_employer_rating: 0, exclude_keywords: [],
     max_results: 30, enabled: true,
   };
 }
 
+export const SOURCE_RU = { hh: "hh.ru", fl: "FL.ru" };
+
+export function sourceMenu(draft) {
+  return {
+    text: `🔍 <b>«${draft.text}» — где ищем?</b>`,
+    kb: { inline_keyboard: [
+      [btn("💼 hh.ru — вакансии", "wiz:source:hh")],
+      [btn("🛠 FL.ru — заказы", "wiz:source:fl")],
+      [btn("🗑 Отмена", "wiz:cancel")],
+    ]},
+  };
+}
+
 export function describe(s) {
-  const bits = [`«${s.text}»`, `ищем ${FIELD_RU[s.search_field] || "везде"}`];
+  const bits = [`«${s.text}»`, SOURCE_RU[s.source] || "hh.ru", `ищем ${FIELD_RU[s.search_field] || "везде"}`];
   bits.push("регион: " + (s.area || []).map((a) => AREA_IDS[a] || a).join(","));
   const sch = s.schedule || [];
   const schRu = { remote: "удалённо", fullDay: "полный день", flexible: "гибкий", shift: "сменный", flyInFlyOut: "вахта" };
@@ -69,7 +82,12 @@ const EMP_ALIASES = {
   "project": ["project"], "проектная": ["project"], "any": ["any"], "любая": ["any"],
 };
 
-// "текст | москва | удалённо | 4.5 | 150000 | 1-3 | название" -> подборка
+const SOURCE_ALIASES = {
+  "hh": "hh", "хх": "hh", "hh.ru": "hh",
+  "fl": "fl", "фл": "fl", "fl.ru": "fl",
+};
+
+// "текст | фл | москва | ..." -> подборка (источник по умолчанию hh.ru)
 export function parseSpec(spec) {
   const s = blankDraft("");
   const texts = [];
@@ -77,6 +95,7 @@ export function parseSpec(spec) {
     const part = raw.trim();
     if (!part) continue;
     const low = part.toLowerCase();
+    if (SOURCE_ALIASES[low]) { s.source = SOURCE_ALIASES[low]; continue; }
     if (AREA_ALIASES[low]) { s.area = AREA_ALIASES[low]; continue; }
     const sch = SCHED_ALIASES[low];
     if (sch) { s.schedule = sch[0] === "any" ? [] : sch; continue; }
@@ -148,6 +167,17 @@ export async function showFresh(ctx, state) {
 export function wizardMenu(draft) {
   const mark = (cur, v) => (cur === v ? "✅ " : "");
   const f = draft.search_field || "everywhere";
+  // Для FL.ru актуальны только ключевые слова и место поиска.
+  if (draft.source === "fl") {
+    return {
+      text: `⚙️ <b>Настройка «${draft.text}» (FL.ru)</b>\nСейчас: ${describe(draft)}\nНажимайте кнопки, затем «Подписаться».`,
+      kb: { inline_keyboard: [
+        ["everywhere", "name", "description"].map((v) =>
+          btn(mark(f, v) + { everywhere: "Везде", name: "В заголовке", description: "В описании" }[v], `wiz:field:${v}`)),
+        [btn("✅ Подписаться", "wiz:done"), btn("🗑 Отмена", "wiz:cancel")],
+      ]},
+    };
+  }
   const a = String((draft.area || [113])[0]);
   const sch = (draft.schedule || [])[0] || "any";
   const emp = (draft.employment || [])[0] || "any";
@@ -267,7 +297,7 @@ export async function onText(ctx, text, state) {
   if (state.awaiting === "keyword" && t && !t.startsWith("/")) {
     state.draft = { ...blankDraft(t.slice(0, 100)), editIndex: null };
     state.awaiting = null;
-    const m = wizardMenu(state.draft);
+    const m = sourceMenu(state.draft);
     const sent = await sendMessage(chatId, m.text, { reply_markup: m.kb });
     state.draft.menuMsgId = sent.message_id;
     return;
@@ -316,6 +346,12 @@ export async function onCallback(ctx, data, msgId, state) {
     const d = state.draft;
     if (!d) { await editMessage(chatId, msgId, "Черновик устарел. Создайте подборку заново:"); return; }
     const [key, val] = rest;
+    if (key === "source" && (val === "hh" || val === "fl")) {
+      d.source = val;
+      const m = wizardMenu(d);
+      await editMessage(chatId, msgId, m.text, m.kb);
+      return;
+    }
     if (key === "cancel") {
       state.draft = null; state.awaiting = null;
       const m = mainMenu();

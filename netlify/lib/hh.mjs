@@ -44,6 +44,7 @@ export function normalizeShards(v) {
   for (const wf of v.workFormats || []) formats.push(...(wf.workFormatsElement || []));
   return {
     id: String(v.vacancyId),
+    source: "hh",
     name: v.name || "",
     url: links.desktop || `https://hh.ru/vacancy/${v.vacancyId}`,
     area: area.name || "",
@@ -97,6 +98,7 @@ function normalizeOfficial(v) {
   const sal = v.salary || {};
   return {
     id: String(v.id),
+    source: "hh",
     name: v.name || "",
     url: v.alternate_url || `https://hh.ru/vacancy/${v.id}`,
     area: v.area?.name || "",

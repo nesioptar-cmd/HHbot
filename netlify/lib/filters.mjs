@@ -43,6 +43,7 @@ export function formatVacancy(v, searchNames = "") {
     `💰 ${salaryText(v)}`,
   ];
   if (searchNames) lines.push(`🔎 <i>${esc(searchNames)}</i>`);
+  if (v.snippet) lines.push(`\n${esc(v.snippet.slice(0, 300))}`);
   lines.push(`🔗 ${v.url}`);
   return lines.join("\n");
 }
